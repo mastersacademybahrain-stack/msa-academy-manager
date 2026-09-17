@@ -1,0 +1,1 @@
+ALTER TABLE packages ADD COLUMN IF NOT EXISTS net_price numeric(12,2);
