@@ -1,7 +1,9 @@
 import { db } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const {session_id,sport,day_of_week,start_time,coach_id=null,effective_start_date,weeks}=req.body||{};
+ const {session_id,sport,day_of_week,start_time,coach_id=null,effective_start_date,weeks,tennis_categories=[]}=req.body||{};
+ const cats=sport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran'].includes(x)))]:[];
+ if(sport==='Tennis'&&!cats.length)return res.status(400).json({error:'Select at least one tennis category'});
  if(!session_id||!sport||day_of_week===undefined||!start_time||!effective_start_date)return res.status(400).json({error:'Session, sport, day, time and effective start date are required'});
  const n=Math.max(1,parseInt(weeks,10)||1),sd=new Date(effective_start_date+'T00:00:00');
  if(Number.isNaN(sd.getTime()))return res.status(400).json({error:'Invalid effective start date'});
@@ -10,7 +12,7 @@ export default async function(req,res){
  const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date FROM academy_sessions WHERE id=$1',[session_id]);if(!old.rows.length)return res.status(404).json({error:'Session not found'});
  const o=old.rows[0];
  const occ=await db.query('SELECT DISTINCT player_id FROM player_schedule_occurrences WHERE session_id=$1 AND session_date >= $2 AND session_date <= $3',[session_id,effective_start_date,edISO]);
- const x=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,sport,day_of_week,start_time,coach_id,start_date,end_date',[sport,+day_of_week,start_time,coach_id,effective_start_date,edISO]);
+ const x=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id,sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories',[sport,+day_of_week,start_time,coach_id,effective_start_date,edISO,cats]);
  const nid=x.rows[0].id;
  for(const r of occ.rows){for(let w=0;w<n;w++){const d=new Date(sd);const delta=((+day_of_week-d.getDay()+7)%7)+(w*7);d.setDate(d.getDate()+delta);if(d>ed)continue;await db.query('INSERT INTO player_schedule_occurrences(player_id,session_id,session_date,status) VALUES($1,$2,$3,\'Pending\') ON CONFLICT DO NOTHING',[r.player_id,nid,d.toISOString().slice(0,10)]);}}
  await db.query('DELETE FROM player_schedule_occurrences WHERE session_id=$1 AND session_date >= $2 AND session_date <= $3',[session_id,effective_start_date,edISO]);

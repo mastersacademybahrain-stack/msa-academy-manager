@@ -11,8 +11,14 @@ export default async function(req,res){
  if(!Array.isArray(session_ids)||session_ids.length!==n)return res.status(400).json({error:'Select exactly '+n+' schedule slots'});
  const p=await db.query('SELECT id,sport FROM players WHERE id=$1',[player_id]);
  if(!p.rows.length)return res.status(404).json({error:'Player not found'});
- const ss=await db.query('SELECT id,sport,day_of_week FROM academy_sessions WHERE id=ANY($1::uuid[])',[session_ids]);
+ const ss=await db.query('SELECT id,sport,day_of_week,tennis_categories FROM academy_sessions WHERE id=ANY($1::uuid[])',[session_ids]);
  if(ss.rows.length!==n||ss.rows.some(x=>x.sport!==p.rows[0].sport||x.sport!==pkg.rows[0].sport))return res.status(400).json({error:'Selected slots must match the player and package sport'});
+ if(pkg.rows[0].sport==='Tennis'){
+  const pc=await db.query('SELECT tennis_categories FROM players WHERE id=$1',[player_id]);
+  const cats=pc.rows[0]?.tennis_categories||[];
+  if(!cats.length)return res.status(400).json({error:'Select at least one tennis category for the player'});
+  if(ss.rows.some(x=>!(x.tennis_categories||[]).some(c=>cats.includes(c))))return res.status(400).json({error:'Each selected tennis slot must match at least one player category'});
+ }
  await db.query('DELETE FROM player_registration_slots WHERE player_id=$1',[player_id]);
  await db.query('DELETE FROM player_schedule_occurrences WHERE player_id=$1',[player_id]);
  await db.query('DELETE FROM player_registrations WHERE player_id=$1',[player_id]);
