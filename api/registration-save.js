@@ -2,12 +2,12 @@ import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
  const user=req.member||{};
- const {player_id,package_id,start_date,session_ids=[]}=req.body||{};
+ const {player_id,package_id,start_date,session_ids=[],number_weeks}=req.body||{};
  if(!player_id||!package_id||!start_date)return res.status(400).json({error:'Player, package and starting date are required'});
- const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks FROM packages WHERE id=$1 AND active=true',[package_id]);
+ const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks,price FROM packages WHERE id=$1 AND active=true',[package_id]);
  if(!pkg.rows.length)return res.status(404).json({error:'Package not found'});
- const n=+pkg.rows[0].sessions_per_week,w=+pkg.rows[0].duration_weeks;
- if(!n||!w)return res.status(400).json({error:'Package must have sessions per week and duration in weeks'});
+ const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=packageWeeks?referencePrice/packageWeeks*w:0;
+ if(!n||!packageWeeks||!w)return res.status(400).json({error:'Package must have sessions per week and duration in weeks, and player number of weeks must be positive'});
  if(!Array.isArray(session_ids)||session_ids.length!==n)return res.status(400).json({error:'Select exactly '+n+' schedule slots'});
  const p=await db.query('SELECT id,sport FROM players WHERE id=$1',[player_id]);
  if(!p.rows.length)return res.status(404).json({error:'Player not found'});
@@ -22,7 +22,8 @@ export default async function(req,res){
  await db.query('DELETE FROM player_registration_slots WHERE player_id=$1',[player_id]);
  await db.query('DELETE FROM player_schedule_occurrences WHERE player_id=$1',[player_id]);
  await db.query('DELETE FROM player_registrations WHERE player_id=$1',[player_id]);
- await db.query('INSERT INTO player_registrations(player_id,sessions_per_week,duration_weeks,start_date) VALUES($1,$2,$3,$4)',[player_id,n,w,start_date]);
+ const discountPercentage=Math.max(0,Math.min(100,Number(req.body.discount_percentage||0))),discountedPrice=netPrice*(1-discountPercentage/100);
+ await db.query('INSERT INTO player_registrations(player_id,sessions_per_week,duration_weeks,start_date,number_weeks,reference_price,net_price,discount_percentage,discounted_price) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[player_id,n,w,start_date,w,referencePrice,netPrice,discountPercentage,discountedPrice]);
  for(const sid of session_ids) await db.query('INSERT INTO player_registration_slots(player_id,session_id) VALUES($1,$2)',[player_id,sid]);
  const start=new Date(start_date+'T00:00:00');
  const lastDates={};
@@ -35,5 +36,5 @@ export default async function(req,res){
    const last=lastDates[s.id];
    if(last) await db.query('UPDATE academy_sessions SET end_date=$1 WHERE id=$2 AND (end_date IS NULL OR end_date<$1)',[last,s.id]);
  }
- res.json({ok:true,player_id,package_id,sessions_per_week:n,duration_weeks:w,start_date,session_ids});
+ res.json({ok:true,player_id,package_id,sessions_per_week:n,duration_weeks:w,number_weeks:w,start_date,reference_price:referencePrice,net_price:netPrice,discount_percentage:discountPercentage,discounted_price:discountedPrice,session_ids});
 }
