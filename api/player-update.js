@@ -1,7 +1,7 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ const user=req.member||{};
  const {id,name,sport,level,package_ids=[]}=req.body||{};
  if(!id||!name||!sport)return res.status(400).json({error:'Player details required'});
  const r=await db.query('UPDATE players SET name=$1,sport=$2,level=$3 WHERE id=$4 RETURNING id,name,sport,level',[name,sport,level||'Junior',id]);

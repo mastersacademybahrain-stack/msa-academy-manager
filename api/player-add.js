@@ -1,7 +1,7 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ const user=req.member||{};
  const {name,sport,level='Junior',package_ids=[],sessions_per_week,duration_weeks,registration_start_date}=req.body||{};
  if(!name||!sport)return res.status(400).json({error:'Player details required'});
  const r=await db.query('INSERT INTO players(name,sport,level) VALUES($1,$2,$3) RETURNING id,name,sport,level',[name,sport,level]);

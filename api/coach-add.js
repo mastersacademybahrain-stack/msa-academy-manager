@@ -1,3 +1,3 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
-export default async function(req,res){const user=await auth.getUser(req);if(!user)return res.status(401).json({error:'Login required'});const {name,sport}=req.body||{};if(!name||!sport)return res.status(400).json({error:'Missing fields'});const x=await db.query('INSERT INTO coaches(name,sport) VALUES($1,$2) RETURNING id,name,sport',[name,sport]);res.json(x.rows[0]);}
+export default async function(req,res){const user=req.member||{};const {name,sport}=req.body||{};if(!name||!sport)return res.status(400).json({error:'Missing fields'});const x=await db.query('INSERT INTO coaches(name,sport) VALUES($1,$2) RETURNING id,name,sport',[name,sport]);res.json(x.rows[0]);}

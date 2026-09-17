@@ -1,7 +1,7 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['GET'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ const user=req.member||null;
  const p=await db.query("SELECT p.id,p.name,p.sport,p.level,COALESCE(json_agg(json_build_object('id',pk.id,'name',pk.name,'sport',pk.sport)) FILTER (WHERE pk.id IS NOT NULL),'[]') AS packages,pr.package_id,pr.sessions_per_week,pr.duration_weeks,pr.start_date,COALESCE((SELECT json_agg(prs.session_id) FROM player_registration_slots prs WHERE prs.player_id=p.id),'[]') AS registration_session_ids FROM players p LEFT JOIN player_packages pp ON pp.player_id=p.id LEFT JOIN packages pk ON pk.id=pp.package_id LEFT JOIN player_registrations pr ON pr.player_id=p.id WHERE p.active=true GROUP BY p.id,pr.package_id,pr.sessions_per_week,pr.duration_weeks,pr.start_date ORDER BY p.name");
  const c=await db.query('SELECT id,name,sport FROM coaches WHERE active=true ORDER BY name');
  const pk=await db.query('SELECT id,name,sport,sessions_per_week,duration_weeks,price,active FROM packages WHERE active=true ORDER BY name');

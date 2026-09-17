@@ -1,7 +1,7 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ const user=req.member||{};
  const {id}=req.body||{}; if(!id)return res.status(400).json({error:'Package required'});
  await db.query('DELETE FROM player_packages WHERE package_id=$1',[id]);
  const r=await db.query('DELETE FROM packages WHERE id=$1',[id]);

@@ -1,7 +1,7 @@
-import { db, auth } from 'hatchable';
+import { db } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ // Authentication is provided by project visibility.
  const {session_id,player_id,status='Present'}=req.body||{};
  if(!session_id||!player_id)return res.status(400).json({error:'Missing session or player'});
  const s=await db.query('SELECT id,sport FROM academy_sessions WHERE id=$1',[session_id]);

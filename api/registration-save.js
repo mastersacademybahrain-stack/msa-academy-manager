@@ -1,7 +1,7 @@
 import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
- const user=await auth.getUser(req); if(!user)return res.status(401).json({error:'Login required'});
+ const user=req.member||{};
  const {player_id,package_id,start_date,session_ids=[]}=req.body||{};
  if(!player_id||!package_id||!start_date)return res.status(400).json({error:'Player, package and starting date are required'});
  const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks FROM packages WHERE id=$1 AND active=true',[package_id]);
