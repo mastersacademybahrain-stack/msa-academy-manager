@@ -9,7 +9,7 @@ export default async function(req,res){
  if(Number.isNaN(sd.getTime()))return res.status(400).json({error:'Invalid effective start date'});
  const today=new Date();today.setHours(0,0,0,0);if(sd<today)return res.status(400).json({error:'Changes cannot be applied to previous dates'});
  const ed=new Date(sd);ed.setDate(ed.getDate()+((n-1)*7)+6);const edISO=ed.toISOString().slice(0,10);
- const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date FROM academy_sessions WHERE id=$1',[session_id]);if(!old.rows.length)return res.status(404).json({error:'Session not found'});
+ const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories FROM academy_sessions WHERE id=$1',[session_id]);if(!old.rows.length)return res.status(404).json({error:'Session not found'});
  const o=old.rows[0];
  const occ=await db.query('SELECT DISTINCT player_id FROM player_schedule_occurrences WHERE session_id=$1 AND session_date >= $2 AND session_date <= $3',[session_id,effective_start_date,edISO]);
  const x=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id,sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories',[sport,+day_of_week,start_time,coach_id,effective_start_date,edISO,cats]);
@@ -19,7 +19,7 @@ export default async function(req,res){
  const oldEnd=o.end_date?new Date(o.end_date+'T00:00:00'):null;
  if(oldEnd && oldEnd>ed){
   const contStart=new Date(ed);contStart.setDate(contStart.getDate()+1);
-  const c=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',[o.sport,o.day_of_week,o.start_time,o.coach_id,contStart.toISOString().slice(0,10),o.end_date]);
+  const c=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id',[o.sport,o.day_of_week,o.start_time,o.coach_id,contStart.toISOString().slice(0,10),o.end_date,o.tennis_categories||[]]);
   await db.query('UPDATE player_schedule_occurrences SET session_id=$1 WHERE session_id=$2 AND session_date > $3',[c.rows[0].id,session_id,edISO]);
  }
  const prev=new Date(sd);prev.setDate(prev.getDate()-1);
