@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS packages (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), name text NOT NULL, sport text NOT NULL, sessions_per_week integer, duration_months integer, price numeric(10,2), active boolean DEFAULT true, created_at timestamptz DEFAULT now());
+CREATE TABLE IF NOT EXISTS player_packages (player_id uuid NOT NULL REFERENCES players(id) ON DELETE CASCADE, package_id uuid NOT NULL REFERENCES packages(id) ON DELETE CASCADE, created_at timestamptz DEFAULT now(), PRIMARY KEY (player_id, package_id));
