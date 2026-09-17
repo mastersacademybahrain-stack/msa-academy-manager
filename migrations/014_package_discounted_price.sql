@@ -1,0 +1,1 @@
+ALTER TABLE packages ADD COLUMN IF NOT EXISTS discounted_price numeric(10,2);
