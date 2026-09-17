@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS player_registrations (player_id uuid PRIMARY KEY REFERENCES players(id) ON DELETE CASCADE, sessions_per_week integer NOT NULL, duration_weeks integer NOT NULL, start_date date NOT NULL, session_ids uuid[] DEFAULT '{}', created_at timestamptz DEFAULT now());
