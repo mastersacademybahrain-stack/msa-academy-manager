@@ -2,11 +2,18 @@ import { db, auth } from 'hatchable';
 export const access='public'; export const methods=['POST'];
 export default async function(req,res){
  const user=req.member||{};
- const {player_id,package_id,start_date,session_ids=[],number_weeks}=req.body||{};
+ const {player_id,package_id,start_date,session_ids=[],number_weeks,discount_percentage}=req.body||{};
  if(!player_id||!package_id||!start_date)return res.status(400).json({error:'Player, package and starting date are required'});
- const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks,price FROM packages WHERE id=$1 AND active=true',[package_id]);
+ const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks,price,net_price,package_type,start_date,end_date FROM packages WHERE id=$1 AND active=true',[package_id]);
  if(!pkg.rows.length)return res.status(404).json({error:'Package not found'});
- const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=packageWeeks?referencePrice/packageWeeks*w:0;
+ const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,type=pkg.rows[0].package_type||'Monthly';
+ let w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=Number(pkg.rows[0].net_price||0);
+ if(type==='Term'){
+  if(!pkg.rows[0].start_date||!pkg.rows[0].end_date||start_date<pkg.rows[0].start_date||start_date>pkg.rows[0].end_date)return res.status(400).json({error:'Start date must be within the package term'});
+  w=Math.max(1,Math.ceil((new Date(pkg.rows[0].end_date+'T00:00:00')-new Date(start_date+'T00:00:00'))/604800000));
+  referencePrice=packageWeeks?referencePrice/packageWeeks*w:0;
+  netPrice=packageWeeks?netPrice/packageWeeks*w:0;
+ }
  if(!n||!packageWeeks||!w)return res.status(400).json({error:'Package must have sessions per week and duration in weeks, and player number of weeks must be positive'});
  if(!Array.isArray(session_ids)||session_ids.length!==n)return res.status(400).json({error:'Select exactly '+n+' schedule slots'});
  const p=await db.query('SELECT id,sport FROM players WHERE id=$1',[player_id]);
