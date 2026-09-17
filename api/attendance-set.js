@@ -1,0 +1,3 @@
+import { db, auth } from 'hatchable';
+export const access='public'; export const methods=['POST'];
+export default async function(req,res){const user=await auth.getUser(req);if(!user)return res.status(401).json({error:'Login required'});const {session_id,player_id,status}=req.body||{};if(!session_id||!player_id||!['Present','Absent','Pending'].includes(status))return res.status(400).json({error:'Invalid attendance'});await db.query('INSERT INTO attendance(academy_session_id,player_id,status) VALUES($1,$2,$3) ON CONFLICT(academy_session_id,player_id) DO UPDATE SET status=EXCLUDED.status,updated_at=now()',[session_id,player_id,status]);res.json({ok:true});}

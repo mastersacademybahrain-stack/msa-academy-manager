@@ -1,0 +1,1 @@
+CREATE TABLE session_players (session_id uuid REFERENCES academy_sessions(id) ON DELETE CASCADE, player_id uuid REFERENCES players(id) ON DELETE CASCADE, PRIMARY KEY (session_id, player_id))

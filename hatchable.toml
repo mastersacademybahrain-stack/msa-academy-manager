@@ -1,0 +1,5 @@
+name = "MSA Academy Manager"
+[auth]
+enabled = true
+providers = ["email"]
+signup = "open"

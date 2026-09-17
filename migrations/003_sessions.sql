@@ -1,0 +1,1 @@
+CREATE TABLE academy_sessions (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), sport text NOT NULL, day_of_week int NOT NULL, start_time time NOT NULL, coach_id uuid REFERENCES coaches(id) ON DELETE SET NULL, created_at timestamptz NOT NULL DEFAULT now())

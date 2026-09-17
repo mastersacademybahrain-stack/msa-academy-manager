@@ -1,0 +1,1 @@
+CREATE TABLE attendance (academy_session_id uuid REFERENCES academy_sessions(id) ON DELETE CASCADE, player_id uuid REFERENCES players(id) ON DELETE CASCADE, status text NOT NULL CHECK (status IN ('Present','Absent','Pending')), updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY (academy_session_id, player_id))

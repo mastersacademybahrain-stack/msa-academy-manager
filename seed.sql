@@ -1,0 +1,1 @@
+INSERT INTO players (name,sport,level) SELECT 'Example Player','Tennis','Junior' WHERE NOT EXISTS (SELECT 1 FROM players WHERE name='Example Player')
