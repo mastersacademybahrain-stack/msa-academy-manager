@@ -19,10 +19,15 @@ export default async function(req,res){
  await db.query('INSERT INTO player_registrations(player_id,sessions_per_week,duration_weeks,start_date) VALUES($1,$2,$3,$4)',[player_id,n,w,start_date]);
  for(const sid of session_ids) await db.query('INSERT INTO player_registration_slots(player_id,session_id) VALUES($1,$2)',[player_id,sid]);
  const start=new Date(start_date+'T00:00:00');
+ const lastDates={};
  for(let week=0;week<w;week++) for(const s of ss.rows){
    const d=new Date(start); const delta=((+s.day_of_week-d.getDay()+7)%7)+(week*7); d.setDate(d.getDate()+delta);
-   const iso=d.toISOString().slice(0,10);
+   const iso=d.toISOString().slice(0,10); lastDates[s.id]=lastDates[s.id]&&lastDates[s.id]>iso?lastDates[s.id]:iso;
    await db.query('INSERT INTO player_schedule_occurrences(player_id,session_id,session_date) VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[player_id,s.id,iso]);
+ }
+ for(const s of ss.rows){
+   const last=lastDates[s.id];
+   if(last) await db.query('UPDATE academy_sessions SET end_date=$1 WHERE id=$2 AND (end_date IS NULL OR end_date<$1)',[last,s.id]);
  }
  res.json({ok:true,player_id,package_id,sessions_per_week:n,duration_weeks:w,start_date,session_ids});
 }
