@@ -3,7 +3,7 @@ export const access='public'; export const methods=['POST'];
 export default async function(req,res){
   const user=req.member||{};
   const {name,sport,sessions_per_week,duration_weeks,price,net_price,package_type,start_date,end_date}=req.body||{};
-  const type=['Monthly','Term','Private'].includes(package_type)?package_type:'Monthly';
+  const type=['Monthly','Term','Private','Trial'].includes(package_type)?package_type:'Monthly';
   const sessions=[1,2,3,4].includes(+sessions_per_week)?+sessions_per_week:null;
   let weeks=+duration_weeks||null;
   if(type==='Monthly') weeks=4;
