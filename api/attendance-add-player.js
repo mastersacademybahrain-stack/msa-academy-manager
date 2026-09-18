@@ -1,6 +1,8 @@
 import { db } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+import { requireManager } from '../lib/access.js';
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const {session_id,player_id,status='Present',guest_name,session_date}=req.body||{};
  if(!session_id)return res.status(400).json({error:'Session required'});
  if(guest_name?.trim()){

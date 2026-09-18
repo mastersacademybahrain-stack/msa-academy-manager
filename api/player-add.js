@@ -1,6 +1,7 @@
 import { db, auth } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const user=req.member||{};
  const {name,sport,level='Junior',tennis_categories=[],package_ids=[],sessions_per_week,duration_weeks,registration_start_date}=req.body||{};
  const cats=sport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran'].includes(x)))]:[];

@@ -1,6 +1,7 @@
 import { db } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const {session_id,effective_start_date,forward_weeks}=req.body||{};
  if(!session_id)return res.status(400).json({error:'Session required'});
  const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date FROM academy_sessions WHERE id=$1',[session_id]);

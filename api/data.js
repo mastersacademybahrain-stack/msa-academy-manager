@@ -1,12 +1,17 @@
-import { db, auth } from 'hatchable';
+import { db } from 'hatchable';
+import { getAppAccess } from '../lib/access.js';
 export const access='member'; export const methods=['GET'];
 export default async function(req,res){
  const user=req.member||null;
+ const appAccess=await getAppAccess(req);
+ if(!appAccess)return res.status(403).json({error:'You do not have MSA Academy access. Ask the owner to grant access to your email.'});
+ const manager=['owner','manager'].includes(appAccess.access_type);
  const p=await db.query("SELECT p.id,p.name,p.sport,p.level,COALESCE(p.tennis_categories,'{}') AS tennis_categories,COALESCE(json_agg(json_build_object('id',pk.id,'name',pk.name,'sport',pk.sport)) FILTER (WHERE pk.id IS NOT NULL),'[]') AS packages,pp.package_id,pr.sessions_per_week,pr.duration_weeks,pr.start_date,pr.number_weeks,pr.reference_price,pr.net_price,pr.discount_percentage,pr.discounted_price,pr.created_at AS registration_created_at,COALESCE((SELECT json_agg(prs.session_id) FROM player_registration_slots prs WHERE prs.player_id=p.id),'[]') AS registration_session_ids FROM players p LEFT JOIN player_packages pp ON pp.player_id=p.id LEFT JOIN packages pk ON pk.id=pp.package_id LEFT JOIN player_registrations pr ON pr.player_id=p.id WHERE p.active=true GROUP BY p.id,pp.package_id,pr.sessions_per_week,pr.duration_weeks,pr.start_date,pr.number_weeks,pr.reference_price,pr.net_price,pr.discount_percentage,pr.discounted_price,pr.created_at ORDER BY p.name");
  const c=await db.query("SELECT id,name,sport,COALESCE(sports,ARRAY[sport]) AS sports FROM coaches WHERE active=true ORDER BY name");
  const pk=await db.query('SELECT id,name,sport,sessions_per_week,duration_weeks,price,net_price,package_type,start_date,end_date,active FROM packages WHERE active=true ORDER BY name');
  const s=await db.query("SELECT s.id,s.sport,s.day_of_week,s.start_time,s.coach_id,s.start_date,s.end_date,s.location,COALESCE(s.tennis_categories,'{}') AS categories,COALESCE(string_agg(DISTINCT c2.name, ' / ' ORDER BY c2.name) FILTER (WHERE c2.id IS NOT NULL),c.name) AS coach_name,COALESCE(array_agg(DISTINCT c2.id) FILTER (WHERE c2.id IS NOT NULL),CASE WHEN c.id IS NOT NULL THEN ARRAY[c.id] ELSE '{}' END) AS coach_ids,COALESCE(json_agg(json_build_object('id',p.id,'name',p.name,'status',COALESCE(a.status,'Pending')) ORDER BY p.name) FILTER (WHERE p.id IS NOT NULL),'[]') AS players FROM academy_sessions s LEFT JOIN coaches c ON c.id=s.coach_id LEFT JOIN session_coaches sc ON sc.session_id=s.id LEFT JOIN coaches c2 ON c2.id=sc.coach_id LEFT JOIN session_players sp ON sp.session_id=s.id LEFT JOIN players p ON p.id=sp.player_id LEFT JOIN attendance a ON a.academy_session_id=s.id AND a.player_id=p.id GROUP BY s.id,c.id,c.name ORDER BY s.day_of_week,s.start_time");
  const occ=await db.query("SELECT o.id,o.player_id,o.session_id,o.session_date,o.status,p.name AS player_name FROM player_schedule_occurrences o JOIN players p ON p.id=o.player_id ORDER BY o.session_date,o.session_id,p.name");
  const guests=await db.query("SELECT id,academy_session_id,guest_name,status,session_date FROM attendance_guests ORDER BY session_date,academy_session_id,guest_name");
- res.json({players:p.rows,coaches:c.rows,packages:pk.rows,sessions:s.rows,occurrences:occ.rows,guests:guests.rows,user});
+ const players=manager?p.rows:p.rows.map(x=>({id:x.id,name:x.name,sport:x.sport,level:x.level,tennis_categories:x.tennis_categories,packages:[]}));
+ res.json({players,coaches:manager?c.rows:[],packages:manager?pk.rows:[],sessions:s.rows,occurrences:occ.rows,guests:guests.rows,user:{...user,app_access:appAccess.access_type}});
 }

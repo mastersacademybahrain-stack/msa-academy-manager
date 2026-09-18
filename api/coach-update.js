@@ -1,6 +1,8 @@
 import { db } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+import { requireManager } from '../lib/access.js';
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const {id,name,sports,sport}=req.body||{};
  const selected=[...new Set((Array.isArray(sports)?sports:(sport?[sport]:[])).filter(Boolean))];
  if(!id||!name||!selected.length)return res.status(400).json({error:'Coach, name and at least one sport are required'});

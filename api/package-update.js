@@ -1,6 +1,8 @@
 import { db, auth } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+import { requireManager } from '../lib/access.js';
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const user=req.member||{};
  const {id,name,sport,sessions_per_week,duration_weeks,price,net_price,package_type,start_date,end_date}=req.body||{};
  const type=['Monthly','Term','Private','Trial'].includes(package_type)?package_type:'Monthly';

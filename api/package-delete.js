@@ -1,6 +1,8 @@
 import { db, auth } from 'hatchable';
-export const access='admin'; export const methods=['POST'];
+import { requireManager } from '../lib/access.js';
+export const access='member'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireManager(req,res)))return;
  const user=req.member||{};
  const {id}=req.body||{}; if(!id)return res.status(400).json({error:'Package required'});
  await db.query('DELETE FROM player_packages WHERE package_id=$1',[id]);
