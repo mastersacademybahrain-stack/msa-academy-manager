@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+<circle cx="250" cy="250" r="238" fill="#fff" stroke="#f5ad16" stroke-width="12"/>
+<circle cx="250" cy="250" r="205" fill="#fff" stroke="#0d174b" stroke-width="12"/>
+<circle cx="250" cy="250" r="142" fill="#fff" stroke="#f5ad16" stroke-width="7"/>
+<text x="250" y="92" text-anchor="middle" font-family="Arial" font-size="42" font-weight="900" fill="#0d174b" letter-spacing="2">MASTERS SPORT</text>
+<text x="250" y="420" text-anchor="middle" font-family="Arial" font-size="39" font-weight="900" fill="#0d174b" letter-spacing="3">ACADEMY</text>
+<text x="250" y="295" text-anchor="middle" font-family="Arial" font-size="94" font-weight="900" fill="#0d174b">MS<tspan fill="#f5ad16">A</tspan></text>
+<text x="93" y="270" text-anchor="middle" font-family="Arial" font-size="34" fill="#f5ad16">★</text>
+<text x="407" y="270" text-anchor="middle" font-family="Arial" font-size="34" fill="#f5ad16">★</text>
+</svg>
