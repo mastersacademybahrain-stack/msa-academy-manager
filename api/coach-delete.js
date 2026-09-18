@@ -1,5 +1,5 @@
 import { db } from 'hatchable';
-export const access='public'; export const methods=['POST'];
+export const access='admin'; export const methods=['POST'];
 export default async function(req,res){
  const {id}=req.body||{};
  if(!id)return res.status(400).json({error:'Coach required'});

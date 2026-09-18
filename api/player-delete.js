@@ -1,5 +1,5 @@
 import { db, auth } from 'hatchable';
-export const access='public'; export const methods=['POST'];
+export const access='admin'; export const methods=['POST'];
 export default async function(req,res){
  const user=req.member||{};
  const {id}=req.body||{}; if(!id)return res.status(400).json({error:'Player required'});

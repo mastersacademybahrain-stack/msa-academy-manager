@@ -1,5 +1,5 @@
 import { db } from 'hatchable';
-export const access='public'; export const methods=['POST'];
+export const access='admin'; export const methods=['POST'];
 export default async function(req,res){
  const {session_id,sport,day_of_week,start_time,coach_id=null,coach_ids=[],effective_start_date,weeks,apply_all=false,tennis_categories=[],location=null}=req.body||{};
  const coaches=[...new Set((Array.isArray(coach_ids)?coach_ids:(coach_id?[coach_id]:[])).filter(Boolean))];

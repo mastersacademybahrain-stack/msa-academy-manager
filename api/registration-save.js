@@ -1,5 +1,5 @@
 import { db, auth } from 'hatchable';
-export const access='public'; export const methods=['POST'];
+export const access='admin'; export const methods=['POST'];
 export default async function(req,res){
  const user=req.member||{};
  const {player_id,package_id,start_date,session_ids=[],number_weeks,discount_percentage}=req.body||{};
