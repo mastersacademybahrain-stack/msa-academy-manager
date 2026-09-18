@@ -5,7 +5,7 @@ export default async function(req,res){
  const coaches=[...new Set((Array.isArray(coach_ids)?coach_ids:(coach_id?[coach_id]:[])).filter(Boolean))];
  const primaryCoach=coaches[0]||null;
  const cats=sport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran'].includes(x)))]:[];
- const allowedLocations={Swimming:['Reef Fitness Club','Reef Beach Club'], 'Water Polo':['Reef Fitness Club','Reef Beach Club'], Tennis:['Reef Island','Reef Tennis Court','Ritz Carlton Lets Padel','Other Court'], Padel:['Ritz Carlton Lets Padel'], Fitness:['Reef Fitness Club'], Taekwondo:['Reef Fitness Club']};
+ const allowedLocations={Swimming:['Reef Fitness Club','Reef Beach Club'], 'Water Polo':['Reef Fitness Club','Reef Beach Club'], Tennis:['Reef Tennis Court','Ritz Carlton Lets Padel','Other Court'], Padel:['Ritz Carlton Lets Padel'], Fitness:['Reef Fitness Club'], Taekwondo:['Reef Fitness Club']};
  if(allowedLocations[sport]&&!allowedLocations[sport].includes(location))return res.status(400).json({error:'Select a valid location for this sport'});
  if(sport==='Tennis'&&!cats.length)return res.status(400).json({error:'Select at least one tennis category'});
  if(!session_id||!sport||day_of_week===undefined||!start_time||!effective_start_date)return res.status(400).json({error:'Session, sport, day, time and effective start date are required'});
