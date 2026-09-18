@@ -1,0 +1,1 @@
+ALTER TABLE academy_sessions ADD COLUMN IF NOT EXISTS location text;
