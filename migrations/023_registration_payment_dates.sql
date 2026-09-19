@@ -1,0 +1,2 @@
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS registration_date date NOT NULL DEFAULT CURRENT_DATE;
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS paid boolean NOT NULL DEFAULT false;
