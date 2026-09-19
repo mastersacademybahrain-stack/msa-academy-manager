@@ -1,0 +1,1 @@
+UPDATE player_registrations pr SET package_id=pp.package_id FROM player_packages pp WHERE pr.player_id=pp.player_id AND pr.package_id IS NULL;
