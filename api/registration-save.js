@@ -11,7 +11,7 @@ export default async function(req,res){
  const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,type=pkg.rows[0].package_type||'Monthly';
  let w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=Number(pkg.rows[0].net_price||0);
  if(type==='Term'){
-  if(!pkg.rows[0].start_date||!pkg.rows[0].end_date||start_date<pkg.rows[0].start_date||start_date>pkg.rows[0].end_date)return res.status(400).json({error:'Start date must be within the package term'});
+  if(!pkg.rows[0].end_date||start_date>pkg.rows[0].end_date)return res.status(400).json({error:'Start date must be on or before the package term end date'});
   w=Math.max(1,Math.ceil((new Date(pkg.rows[0].end_date+'T00:00:00')-new Date(start_date+'T00:00:00'))/604800000));
   referencePrice=packageWeeks?referencePrice/packageWeeks*w:0;
   netPrice=packageWeeks?netPrice/packageWeeks*w:0;
