@@ -9,7 +9,7 @@ export default async function(req,res){
   if(!a)return;
   const {registration_id,occurrences=[]}=req.body||{};
   if(!registration_id)return res.status(400).json({error:'Registration ID is required'});
-  const r=await db.query(`SELECT pr.id,pr.player_id,pr.package_id,pr.sessions_per_week,pr.start_date,pr.number_weeks,p.sport,p.tennis_categories
+  const r=await db.query(`SELECT pr.id,pr.player_id,pr.package_id,pr.sessions_per_week,pr.start_date,pr.number_weeks,pr.sport AS sport,p.sport AS player_sport,pr.tennis_categories
     FROM player_registrations pr JOIN players p ON p.id=pr.player_id WHERE pr.id=$1 LIMIT 1`,[registration_id]);
   if(!r.rows.length)return res.status(404).json({error:'Registration not found'});
   const reg=r.rows[0];
