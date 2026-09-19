@@ -46,7 +46,7 @@ function legacyRegistration(c){let e=st.players.find(x=>x.id===st.selected);if(e
  let mode=document.getElementById('registrationMode')?.value||'',player=st.players.find(function(p){return p.id===document.getElementById('existingPlayer')?.value}),sp=document.getElementById('ps'),cat=document.getElementById('tennisCats'),pkg=document.getElementById('pp');
  if(!sp)return;
  let registered=player?[...new Set((player.registrations||[]).map(function(r){return r.sport}).filter(Boolean))]:[];
- let choices=mode==='renewal'?registered:sports.filter(function(x){return !registered.includes(x)});
+ let choices=mode==='renewal'?registered:sports.filter(function(x){return !registered.includes(x)});if(st.editRegistration){let editing=st.players.flatMap(function(p){return p.registrations||[]}).find(function(r){return r.id===st.editRegistration});if(editing?.sport&&!choices.includes(editing.sport))choices=[editing.sport,...choices];}
  let current=sp.value;
  sp.innerHTML='<option value="">Select sport...</option>'+choices.map(function(x){return '<option value="'+x+'">'+x+'</option>'}).join('');
  if(current&&choices.includes(current))sp.value=current;else sp.value='';
