@@ -3,12 +3,18 @@ import { requireManager } from '../lib/access.js';
 export const access='member'; export const methods=['POST'];
 export default async function(req,res){
  if(!(await requireManager(req,res)))return;
- const {player_id,package_id,start_date,number_weeks,discount_percentage=0,registration_type='new',registration_id=null}=req.body||{};
+ const {player_id,package_id,start_date,number_weeks,discount_percentage=0,registration_type='new',registration_id=null,tennis_categories=[]}=req.body||{};
  if(!player_id||!package_id||!start_date)return res.status(400).json({error:'Player, package and starting date are required'});
  const pkg=await db.query('SELECT id,sport,sessions_per_week,duration_weeks,price,net_price,package_type,start_date,end_date FROM packages WHERE id=$1 AND active=true',[package_id]);
  if(!pkg.rows.length)return res.status(404).json({error:'Package not found'});
  const p=await db.query('SELECT id,sport,tennis_categories FROM players WHERE id=$1 AND active=true',[player_id]);
  if(!p.rows.length)return res.status(404).json({error:'Player not found'});
+ const registrationSport=pkg.rows[0].sport;
+ if(registration_type==='new_sport'){
+  const active=await db.query("SELECT id FROM player_registrations WHERE player_id=$1 AND COALESCE(sport,'')=$2 AND start_date + (GREATEST(1,number_weeks)*7-1) >= $3 LIMIT 1",[player_id,registrationSport,start_date]);
+  if(active.rows.length)return res.status(400).json({error:'This player already has an active registration for '+registrationSport+'. Use Renewal for that sport instead.'});
+ }
+ const cats=registrationSport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran','Private'].includes(x)))]:[];
  const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,type=pkg.rows[0].package_type||'Monthly';
  let w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=Number(pkg.rows[0].net_price||0);
  if(type==='Term'){
@@ -23,11 +29,11 @@ export default async function(req,res){
   const ex=await db.query('SELECT id FROM player_registrations WHERE id=$1 AND player_id=$2',[registration_id,player_id]);
   if(!ex.rows.length)return res.status(404).json({error:'Registration not found'});
   reg=registration_id;
-  await db.query('UPDATE player_registrations SET package_id=$1 WHERE id=$2',[package_id,reg]);
+  await db.query('UPDATE player_registrations SET package_id=$1,sport=$2,tennis_categories=$3,sessions_per_week=$4,duration_weeks=$5,start_date=$6,number_weeks=$7,reference_price=$8,net_price=$9,discount_percentage=$10,discounted_price=$11 WHERE id=$12',[package_id,registrationSport,cats,n,w,start_date,w,referencePrice,netPrice,Math.max(0,Math.min(100,Number(discount_percentage||0))),netPrice*(1-Math.max(0,Math.min(100,Number(discount_percentage||0)))/100),reg]);
  }else{
   const nr=await db.query('SELECT COALESCE(MAX(registration_no),0)+1 AS n FROM player_registrations WHERE player_id=$1',[player_id]);
   const next=+nr.rows[0].n;
-  const ins=await db.query('INSERT INTO player_registrations(id,player_id,package_id,registration_no,registration_type,sessions_per_week,duration_weeks,start_date,number_weeks,reference_price,net_price,discount_percentage,discounted_price) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id,registration_no',[player_id,package_id,next,registration_type,n,w,start_date,w,referencePrice,netPrice,Math.max(0,Math.min(100,Number(discount_percentage||0))),netPrice*(1-Math.max(0,Math.min(100,Number(discount_percentage||0)))/100)]);
+  const ins=await db.query('INSERT INTO player_registrations(id,player_id,package_id,registration_no,registration_type,sport,tennis_categories,sessions_per_week,duration_weeks,start_date,number_weeks,reference_price,net_price,discount_percentage,discounted_price) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id,registration_no',[player_id,package_id,next,registration_type,registrationSport,cats,n,w,start_date,w,referencePrice,netPrice,Math.max(0,Math.min(100,Number(discount_percentage||0))),netPrice*(1-Math.max(0,Math.min(100,Number(discount_percentage||0)))/100)]);
   reg=ins.rows[0].id;
  }
  await db.query('INSERT INTO player_packages(player_id,package_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[player_id,package_id]);
