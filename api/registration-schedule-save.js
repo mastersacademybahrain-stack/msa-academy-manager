@@ -19,7 +19,7 @@ export default async function(req,res){
   for(const x of occurrences){
     const session_id=String(x.session_id||'');
     const session_date=String(x.session_date||'');
-    if(!session_id||!/^\\d{4}-\\d{2}-\\d{2}$/.test(session_date))return res.status(400).json({error:'Each slot needs a valid session and date'});
+    if(!session_id||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(session_date))return res.status(400).json({error:'Each slot needs a valid session and date'});
     const q=await db.query('SELECT id,sport,day_of_week,start_time,start_date,end_date,tennis_categories,location FROM academy_sessions WHERE id=$1 LIMIT 1',[session_id]);
     if(!q.rows.length)return res.status(400).json({error:'One selected session no longer exists'});
     const s=q.rows[0];
