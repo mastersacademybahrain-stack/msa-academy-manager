@@ -13,7 +13,7 @@ export default async function(req,res){
     FROM player_registrations pr JOIN players p ON p.id=pr.player_id WHERE pr.id=$1 LIMIT 1`,[registration_id]);
   if(!r.rows.length)return res.status(404).json({error:'Registration not found'});
   const reg=r.rows[0];
-  if(!Array.isArray(occurrences)||!occurrences.length)return res.status(400).json({error:'Select at least one dated slot'});
+  if(!Array.isArray(occurrences))return res.status(400).json({error:'Occurrences must be a list'});
 
   const clean=[];
   for(const x of occurrences){
@@ -57,9 +57,14 @@ export default async function(req,res){
     if(weekCounts[wk]>Number(reg.sessions_per_week||1))return res.status(400).json({error:'Too many slots selected in one week. This registration allows '+reg.sessions_per_week+' per week.'});
   }
 
+  // Replace this registration's schedule completely with the current checked list.
+  // This deliberately supports zero selections: unticking every slot clears the registration schedule.
+  const oldSlots=await db.query('SELECT session_id FROM player_registration_slots WHERE registration_id=$1',[registration_id]);
   await db.query('DELETE FROM player_schedule_occurrences WHERE registration_id=$1',[registration_id]);
   await db.query('DELETE FROM player_registration_slots WHERE registration_id=$1',[registration_id]);
-  await db.query('DELETE FROM session_players WHERE player_id=$1',[reg.player_id]);
+  for(const row of oldSlots.rows){
+    await db.query('DELETE FROM session_players WHERE player_id=$1 AND session_id=$2 AND NOT EXISTS (SELECT 1 FROM player_registration_slots WHERE player_id=$1 AND session_id=$2)',[reg.player_id,row.session_id]);
+  }
 
   const sessionSet=new Set();
   for(const x of unique){
