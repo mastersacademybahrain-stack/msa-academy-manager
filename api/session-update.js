@@ -22,7 +22,7 @@ export default async function(req,res){
   const nid=hx.rows[0].id;
   for(const cid of coaches)await db.query('INSERT INTO session_coaches(session_id,coach_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[nid,cid]);
   await db.query('UPDATE player_schedule_occurrences SET session_id=$1 WHERE session_id=$2 AND session_date=$3',[nid,session_id,hd]);
-  await db.query('UPDATE guests SET academy_session_id=$1 WHERE academy_session_id=$2 AND session_date=$3',[nid,session_id,hd]);
+  await db.query('UPDATE attendance_guests SET academy_session_id=$1 WHERE academy_session_id=$2 AND session_date=$3',[nid,session_id,hd]);
   return res.json({ok:true,old_session_id:session_id,new_session_id:nid,start_date:hd,end_date:hd,weeks:1,historical:true});
  }
  const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories,location FROM academy_sessions WHERE id=$1',[session_id]);if(!old.rows.length)return res.status(404).json({error:'Session not found'});
