@@ -1,0 +1,1 @@
+ALTER TABLE players ADD COLUMN IF NOT EXISTS guardian_contact text
