@@ -3,7 +3,7 @@ import { requireManager } from '../lib/access.js';
 export const access='member'; export const methods=['POST'];
 export default async function(req,res){
  if(!(await requireManager(req,res)))return;
- const {session_id,sport,day_of_week,start_time,coach_id=null,coach_ids=[],effective_start_date,weeks,apply_all=false,tennis_categories=[],location=null}=req.body||{};
+ const {session_id,sport,day_of_week,start_time,coach_id=null,coach_ids=[],effective_start_date,weeks,apply_all=false,tennis_categories=[],location=null,historical_date=null}=req.body||{};
  const coaches=[...new Set((Array.isArray(coach_ids)?coach_ids:(coach_id?[coach_id]:[])).filter(Boolean))];
  const primaryCoach=coaches[0]||null;
  const categoryMap={Tennis:['Red','Orange','Green','Yellow','Veteran','Private'],Swimming:['Kids','Juniors','Adults'],'Water Polo':['Kids','Teens','Veterans'],Padel:['Kids','Teens','Veterans'],Taekwondo:['Kids','Teens'],Fitness:['Kids','Juniors']};
@@ -14,7 +14,17 @@ export default async function(req,res){
  if(!session_id||!sport||day_of_week===undefined||!start_time||!effective_start_date)return res.status(400).json({error:'Session, sport, day, time and effective start date are required'});
  const n=Math.max(1,parseInt(weeks,10)||1),sd=new Date(effective_start_date+'T00:00:00');
  if(Number.isNaN(sd.getTime()))return res.status(400).json({error:'Invalid effective start date'});
- const today=new Date();today.setHours(0,0,0,0);if(sd<today)return res.status(400).json({error:'Changes cannot be applied to previous dates'});
+ const today=new Date();today.setHours(0,0,0,0);
+ // A past occurrence is edited as a one-day snapshot so future sessions and historical attendance are not changed.
+ if(!apply_all&&historical_date&&historical_date<effective_start_date)return res.status(400).json({error:'Historical date must match the effective start date'});
+ if(!apply_all&&historical_date&&new Date(historical_date+'T00:00:00')<today){
+  const hd=historical_date, hx=await db.query('INSERT INTO academy_sessions(sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories,location) VALUES($1,$2,$3,$4,$5,$5,$6,$7) RETURNING id',[sport,+day_of_week,start_time,primaryCoach,hd,cats,location]);
+  const nid=hx.rows[0].id;
+  for(const cid of coaches)await db.query('INSERT INTO session_coaches(session_id,coach_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[nid,cid]);
+  await db.query('UPDATE player_schedule_occurrences SET session_id=$1 WHERE session_id=$2 AND session_date=$3',[nid,session_id,hd]);
+  await db.query('UPDATE guests SET academy_session_id=$1 WHERE academy_session_id=$2 AND session_date=$3',[nid,session_id,hd]);
+  return res.json({ok:true,old_session_id:session_id,new_session_id:nid,start_date:hd,end_date:hd,weeks:1,historical:true});
+ }
  const old=await db.query('SELECT id,sport,day_of_week,start_time,coach_id,start_date,end_date,tennis_categories,location FROM academy_sessions WHERE id=$1',[session_id]);if(!old.rows.length)return res.status(404).json({error:'Session not found'});
  const o=old.rows[0],oldEnd=o.end_date?new Date(o.end_date+'T00:00:00'):null;
  const allFuture=!!apply_all;
