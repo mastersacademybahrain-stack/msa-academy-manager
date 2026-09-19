@@ -11,7 +11,7 @@ export default async function(req,res){
  if(!p.rows.length)return res.status(404).json({error:'Player not found'});
  const registrationSport=pkg.rows[0].sport;
  if(registration_type==='new_sport'){
-  const active=await db.query("SELECT id FROM player_registrations WHERE player_id=$1 AND COALESCE(sport,'')=$2 AND start_date + (GREATEST(1,number_weeks)*7-1) >= $3 LIMIT 1",[player_id,registrationSport,start_date]);
+  const active=await db.query("SELECT id FROM player_registrations WHERE player_id=$1 AND COALESCE(sport,'')=$2 AND start_date + (GREATEST(1,number_weeks)*7-1) >= $3 AND ($4::uuid IS NULL OR id<>$4::uuid) LIMIT 1",[player_id,registrationSport,start_date,registration_id||null]);
   if(active.rows.length)return res.status(400).json({error:'This player already has an active registration for '+registrationSport+'. Use Renewal for that sport instead.'});
  }
  const cats=registrationSport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran','Private'].includes(x)))]:[];
