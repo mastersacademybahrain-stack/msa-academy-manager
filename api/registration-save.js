@@ -17,12 +17,13 @@ export default async function(req,res){
   netPrice=packageWeeks?netPrice/packageWeeks*w:0;
  }
  if(!n||!packageWeeks||!w)return res.status(400).json({error:'Package must have sessions per week and duration in weeks, and player number of weeks must be positive'});
- if(!Array.isArray(session_ids)||session_ids.length!==n)return res.status(400).json({error:'Select exactly '+n+' schedule slots'});
+ const slotsKnown=Array.isArray(session_ids)&&session_ids.length>0;
+ if(slotsKnown&&session_ids.length!==n)return res.status(400).json({error:'Select exactly '+n+' schedule slots, or leave slots unassigned for now'});
  const p=await db.query('SELECT id,sport FROM players WHERE id=$1',[player_id]);
  if(!p.rows.length)return res.status(404).json({error:'Player not found'});
- const ss=await db.query('SELECT id,sport,day_of_week,tennis_categories FROM academy_sessions WHERE id=ANY($1::uuid[])',[session_ids]);
- if(ss.rows.length!==n||ss.rows.some(x=>x.sport!==p.rows[0].sport||x.sport!==pkg.rows[0].sport))return res.status(400).json({error:'Selected slots must match the player and package sport'});
- if(pkg.rows[0].sport==='Tennis'){
+ const ss=slotsKnown?await db.query('SELECT id,sport,day_of_week,tennis_categories FROM academy_sessions WHERE id=ANY($1::uuid[])',[session_ids]):{rows:[]};
+ if(slotsKnown&&(ss.rows.length!==n||ss.rows.some(x=>x.sport!==p.rows[0].sport||x.sport!==pkg.rows[0].sport)))return res.status(400).json({error:'Selected slots must match the player and package sport'});
+ if(slotsKnown&&pkg.rows[0].sport==='Tennis'){
   const pc=await db.query('SELECT tennis_categories FROM players WHERE id=$1',[player_id]);
   const cats=pc.rows[0]?.tennis_categories||[];
   if(!cats.length)return res.status(400).json({error:'Select at least one tennis category for the player'});
@@ -33,7 +34,7 @@ export default async function(req,res){
  await db.query('DELETE FROM player_registrations WHERE player_id=$1',[player_id]);
  const discountPercentage=Math.max(0,Math.min(100,Number(req.body.discount_percentage||0))),discountedPrice=netPrice*(1-discountPercentage/100);
  await db.query('INSERT INTO player_registrations(player_id,sessions_per_week,duration_weeks,start_date,number_weeks,reference_price,net_price,discount_percentage,discounted_price) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[player_id,n,w,start_date,w,referencePrice,netPrice,discountPercentage,discountedPrice]);
- for(const sid of session_ids) await db.query('INSERT INTO player_registration_slots(player_id,session_id) VALUES($1,$2)',[player_id,sid]);
+ if(slotsKnown) for(const sid of session_ids) await db.query('INSERT INTO player_registration_slots(player_id,session_id) VALUES($1,$2)',[player_id,sid]);
  const start=new Date(start_date+'T00:00:00');
  const lastDates={};
  for(let week=0;week<w;week++) for(const s of ss.rows){
