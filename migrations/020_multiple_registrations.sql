@@ -1,0 +1,17 @@
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS package_id uuid;
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS id uuid DEFAULT gen_random_uuid();
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS registration_type text NOT NULL DEFAULT 'new';
+ALTER TABLE player_registrations ADD COLUMN IF NOT EXISTS registration_no integer;
+UPDATE player_registrations SET registration_no=1 WHERE registration_no IS NULL;
+ALTER TABLE player_registrations ALTER COLUMN registration_no SET NOT NULL;
+ALTER TABLE player_registrations DROP CONSTRAINT IF EXISTS player_registrations_pkey;
+ALTER TABLE player_registrations ADD CONSTRAINT player_registrations_pkey PRIMARY KEY (id);
+CREATE UNIQUE INDEX IF NOT EXISTS player_registrations_player_no_key ON player_registrations(player_id,registration_no);
+ALTER TABLE player_registration_slots ADD COLUMN IF NOT EXISTS registration_id uuid;
+UPDATE player_registration_slots prs SET registration_id=pr.id FROM player_registrations pr WHERE pr.player_id=prs.player_id AND prs.registration_id IS NULL;
+ALTER TABLE player_registration_slots DROP CONSTRAINT IF EXISTS player_registration_slots_pkey;
+ALTER TABLE player_registration_slots ALTER COLUMN registration_id SET NOT NULL;
+ALTER TABLE player_registration_slots ADD CONSTRAINT player_registration_slots_pkey PRIMARY KEY (registration_id,session_id);
+ALTER TABLE player_schedule_occurrences ADD COLUMN IF NOT EXISTS registration_id uuid;
+UPDATE player_schedule_occurrences o SET registration_id=pr.id FROM player_registrations pr WHERE pr.player_id=o.player_id AND o.registration_id IS NULL;
+CREATE INDEX IF NOT EXISTS player_schedule_occurrences_registration_id_idx ON player_schedule_occurrences(registration_id);

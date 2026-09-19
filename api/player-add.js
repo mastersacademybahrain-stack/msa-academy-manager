@@ -5,7 +5,7 @@ export default async function(req,res){
  if(!(await requireManager(req,res)))return;
  const user=req.member||{};
  const {name,sport,level='Junior',tennis_categories=[],package_ids=[],sessions_per_week,duration_weeks,registration_start_date}=req.body||{};
- const cats=sport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran'].includes(x)))]:[];
+ const cats=sport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran','Private'].includes(x)))]:[];
  if(!name||!sport)return res.status(400).json({error:'Player details required'});
  const r=await db.query('INSERT INTO players(name,sport,level,tennis_categories) VALUES($1,$2,$3,$4) RETURNING id,name,sport,level,tennis_categories',[name,sport,level,cats]);
  const player=r.rows[0];
