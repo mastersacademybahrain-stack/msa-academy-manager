@@ -101,9 +101,13 @@ export default async function(req,res){
     const occValues=[];
     const occParams=[reg.player_id,registration_id];
     unique.forEach((x,i)=>{
-      const p=3+i*2;
+      // Slots have one variable binding per row: player_id, session_id, registration_id.
+      // Keep the session_id placeholders contiguous: $3, $4, $5, ...
+      const p=3+i;
       slotValues.push(`($1,$${p},$2)`);
       slotParams.push(x.session_id);
+
+      // Occurrences have two variable bindings per row: session_id and session_date.
       const o=3+i*2;
       occValues.push(`($1,$${o},$${o+1},'Pending',$2)`);
       occParams.push(x.session_id,x.session_date);
