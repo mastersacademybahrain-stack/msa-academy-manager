@@ -8,10 +8,10 @@
 <circle cx="250" cy="250" r="191" fill="#fff" stroke="#3b1f78" stroke-width="9"/>
 <circle cx="250" cy="250" r="154" fill="#fff" stroke="#f2b233" stroke-width="6"/>
 <text font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900" fill="#3b1f78" letter-spacing="1">
- <textPath href="#topArc" startOffset="50%" text-anchor="middle">MASTERS SPORT</textPath>
+ <textPath href="#topArc" xlink:href="#topArc" startOffset="50%" text-anchor="middle">MASTERS SPORT</textPath>
 </text>
 <text font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="900" fill="#3b1f78" letter-spacing="2">
- <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">ACADEMY</textPath>
+ <textPath href="#bottomArc" xlink:href="#bottomArc" startOffset="50%" text-anchor="middle">ACADEMY</textPath>
 </text>
 <text x="250" y="298" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="94" font-weight="900" fill="#3b1f78">MS<tspan fill="#f2b233">A</tspan></text>
 <text x="91" y="280" text-anchor="middle" font-family="Arial" font-size="34" fill="#f2b233">★</text>
