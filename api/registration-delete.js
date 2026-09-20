@@ -1,7 +1,7 @@
 import { db } from 'hatchable';
 import { requireManager } from '../lib/access.js';
 
-export const access='member';
+export const access='user';
 
 export default async function(req,res){
   const a=await requireManager(req,res);

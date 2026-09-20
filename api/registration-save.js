@@ -1,6 +1,6 @@
 import { db } from 'hatchable';
 import { requireManager } from '../lib/access.js';
-export const access='member'; export const methods=['POST'];
+export const access='user'; export const methods=['POST'];
 export default async function(req,res){
  if(!(await requireManager(req,res)))return;
  const {player_id,package_id,start_date,number_weeks,discount_percentage=0,registration_type='new',registration_id=null,tennis_categories=[],registration_date=null,paid=false}=req.body||{};

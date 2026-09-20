@@ -1,6 +1,6 @@
 import { db } from 'hatchable';
 import { requireOwner } from '../lib/access.js';
-export const access='member'; export const methods=['GET','POST','DELETE'];
+export const access='user'; export const methods=['GET','POST','DELETE'];
 export default async function(req,res){
  if(!(await requireOwner(req,res)))return;
  if(req.method==='GET'){

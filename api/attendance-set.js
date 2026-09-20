@@ -1,5 +1,5 @@
 import { db } from 'hatchable';
-export const access='member'; export const methods=['POST'];
+export const access='user'; export const methods=['POST'];
 export default async function(req,res){
  const {session_id,player_id,status,session_date,guest_id}=req.body||{};
  if(!status||!['Present','Absent','Pending'].includes(status))return res.status(400).json({error:'Invalid attendance'});

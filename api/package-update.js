@@ -1,6 +1,6 @@
 import { db, auth } from 'hatchable';
 import { requireManager } from '../lib/access.js';
-export const access='member'; export const methods=['POST'];
+export const access='user'; export const methods=['POST'];
 export default async function(req,res){
  if(!(await requireManager(req,res)))return;
  const user=req.member||{};

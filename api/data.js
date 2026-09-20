@@ -1,8 +1,8 @@
-import { db } from 'hatchable';
+import { db, auth } from 'hatchable';
 import { getAppAccess } from '../lib/access.js';
-export const access='member'; export const methods=['GET'];
+export const access='user'; export const methods=['GET'];
 export default async function(req,res){
- const user=req.member||null;
+ const user=await auth.getUser(req);
  const appAccess=await getAppAccess(req);
  if(!appAccess)return res.status(403).json({error:'You do not have MSA Academy access. Ask the owner to grant access to your email.'});
  const manager=['owner','manager'].includes(appAccess.access_type);
