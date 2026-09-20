@@ -16,7 +16,7 @@ export default async function(req,res){
   // Remove registration-dependent records first so every player can be deleted cleanly.
   await db.query('DELETE FROM player_schedule_occurrences WHERE player_id=$1',[id]);
   await db.query('DELETE FROM player_registration_slots WHERE player_id=$1',[id]);
-  await db.query('DELETE FROM attendance WHERE player_id=$1',[id]);
+  // Attendance is stored per dated occurrence; no legacy attendance row is deleted here.
   await db.query('DELETE FROM session_players WHERE player_id=$1',[id]);
   await db.query('DELETE FROM player_registrations WHERE player_id=$1',[id]);
   await db.query('DELETE FROM player_packages WHERE player_id=$1',[id]);

@@ -14,7 +14,7 @@ export default async function(req,res){
  if(!player_id)return res.status(400).json({error:'Player required'});
  const reg=await db.query('SELECT 1 FROM player_registration_slots WHERE player_id=$1 AND session_id=$2 LIMIT 1',[player_id,session_id]);
  if(reg.rows.length)return res.status(400).json({error:'This player is registered for this session and cannot be removed manually.'});
- if(session_date)await db.query('DELETE FROM player_schedule_occurrences WHERE player_id=$1 AND session_id=$2 AND session_date=$3',[player_id,session_id,session_date]);
- await db.query('DELETE FROM attendance WHERE player_id=$1 AND academy_session_id=$2',[player_id,session_id]);
+ if(!session_date)return res.status(400).json({error:'Session date required'});
+ await db.query('DELETE FROM player_schedule_occurrences WHERE player_id=$1 AND session_id=$2 AND session_date=$3',[player_id,session_id,session_date]);
  res.json({ok:true});
 }
