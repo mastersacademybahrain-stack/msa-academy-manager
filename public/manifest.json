@@ -1,0 +1,14 @@
+{
+  "name":"MSA Academy Manager",
+  "short_name":"MSA Manager",
+  "description":"MSA Academy Manager — Where Champs Are Made",
+  "start_url":"/",
+  "scope":"/",
+  "display":"standalone",
+  "orientation":"portrait-primary",
+  "background_color":"#edf3f7",
+  "theme_color":"#071b35",
+  "icons":[
+    {"src":"/msa-logo.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
