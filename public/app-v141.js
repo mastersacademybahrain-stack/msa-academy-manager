@@ -72,7 +72,7 @@ st.players.forEach(function(p){var rs=(p.registrations||[]).filter(function(r){v
 var sportRows=sports.map(function(sp){return {label:sp,value:regs.filter(function(r){return r.sport===sp}).length}}).filter(function(x){return x.value});
 var packages={};regs.forEach(function(r){var k=r.package_name||'Unassigned';packages[k]=(packages[k]||0)+1});
 var topPackages=Object.keys(packages).map(function(k){return {label:k,value:packages[k]}}).sort(function(a,b){return b.value-a.value}).slice(0,8);
-var money=function(r){return Number(r.net_price??r.discounted_price??r.reference_price??0)||0},reference=function(r){return Number(r.reference_price??r.price??money(r))||0};
+var money=function(r){return Number(r.discounted_price??r.net_price??r.reference_price??0)||0},reference=function(r){return Number(r.reference_price??r.price??0)||0};
 var net=fregs.reduce(function(a,r){return a+money(r)},0),gross=fregs.reduce(function(a,r){return a+reference(r)},0),discounts=Math.max(0,gross-net),paid=fregs.filter(function(r){return r.paid}),unpaid=fregs.filter(function(r){return !r.paid}),collected=paid.reduce(function(a,r){return a+money(r)},0),outstanding=unpaid.reduce(function(a,r){return a+money(r)},0);
 var sportFin=sports.map(function(sp){var rr=fregs.filter(function(r){return r.sport===sp});return {label:sp,value:rr.reduce(function(a,r){return a+money(r)},0)}}).filter(function(x){return x.value}).sort(function(a,b){return b.value-a.value});
 var finPackages={};fregs.forEach(function(r){var k=r.package_name||'Unassigned';finPackages[k]=(finPackages[k]||0)+money(r)});
