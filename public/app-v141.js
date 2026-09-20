@@ -98,7 +98,8 @@ function generateSummaryPDFLegacy(){
 var today=new Date(),todayISO=localISO(today),afrom=document.getElementById('afrom')?.value||localISO(new Date(today.getFullYear(),today.getMonth(),1)),ato=document.getElementById('ato')?.value||todayISO,ffrom=document.getElementById('ffrom')?.value||afrom,fto=document.getElementById('fto')?.value||ato;
 var regs=[];st.players.forEach(function(p){(p.registrations||[]).forEach(function(r){var d=r.registration_date||String(r.created_at||'').slice(0,10);if(d>=afrom&&d<=ato)regs.push({...r,player_id:p.id,player_name:p.name})})});
 var esc=function(x){return String(x??'').replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]})};
-var money=function(r){return Number(r.net_price??r.discounted_price??r.reference_price??0)||0},reference=function(r){return Number(r.reference_price??r.price??money(r))||0};
+var reference=function(r){return Number(r.reference_price??r.price??0)||0};
+   var money=function(r){var ref=reference(r),disc=Number(r.discount_percentage);if(ref>0&&Number.isFinite(disc)&&disc>0)return Math.max(0,ref*(1-disc/100));var dp=Number(r.discounted_price);if(Number.isFinite(dp)&&dp>=0)return dp;var np=Number(r.net_price);if(Number.isFinite(np)&&np>=0)return np;return ref};
 var total=regs.length,unique=new Set(regs.map(r=>r.player_id)).size;
 var sportRows=sports.map(sp=>({label:sp,value:regs.filter(r=>r.sport===sp).length})).filter(x=>x.value);
 var sportColors={Tennis:'#1476e8',Swimming:'#12a878',Padel:'#f5ad16','Water Polo':'#7b61ff',Taekwondo:'#e14d5a',Fitness:'#8b5a2b'};
