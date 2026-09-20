@@ -1,8 +1,8 @@
 import { db } from 'hatchable';
-import { requireManager } from '../lib/access.js';
+import { requireAttendanceAccess } from '../lib/access.js';
 export const access='user'; export const methods=['POST'];
 export default async function(req,res){
- if(!(await requireManager(req,res)))return;
+ if(!(await requireAttendanceAccess(req,res)))return;
  const {session_id,player_id,status='Present',guest_name,session_date}=req.body||{};
  if(!session_id)return res.status(400).json({error:'Session required'});
  if(guest_name?.trim()){
