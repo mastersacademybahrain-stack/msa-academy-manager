@@ -6,7 +6,7 @@ export default async function(req,res){
  const {session_id,sport,day_of_week,start_time,coach_id=null,coach_ids=[],effective_start_date,weeks,apply_all=false,tennis_categories=[],location=null,historical_date=null}=req.body||{};
  const coaches=[...new Set((Array.isArray(coach_ids)?coach_ids:(coach_id?[coach_id]:[])).filter(Boolean))];
  const primaryCoach=coaches[0]||null;
- const categoryMap={Tennis:['Red','Orange','Green','Yellow','Veteran','Private'],Swimming:['Kids','Juniors','Adults'],'Water Polo':['Kids','Teens','Adults'],Padel:['Kids','Teens','Adults'],Taekwondo:['Kids','Juniors'],Fitness:['Kids','Juniors']};
+ const categoryMap={Tennis:['Red','Orange','Green','Yellow','Veteran','Private'],Swimming:['Kids','Juniors','Adults','Private'],'Water Polo':['Kids','Teens','Adults','Private'],Padel:['Kids','Teens','Adults','Private'],Taekwondo:['Kids','Juniors','Private'],Fitness:['Kids','Juniors','Private']};
  const cats=Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>(categoryMap[sport]||[]).includes(x)))]:[];
  const allowedLocations={Swimming:['Reef Fitness Club','Reef Beach Club'], 'Water Polo':['Reef Fitness Club','Reef Beach Club'], Tennis:['Reef Tennis Court','Ritz Carlton Lets Padel','Other Court'], Padel:['Ritz Carlton Lets Padel'], Fitness:['Reef Fitness Club'], Taekwondo:['Reef Fitness Club']};
  if(allowedLocations[sport]&&!allowedLocations[sport].includes(location))return res.status(400).json({error:'Select a valid location for this sport'});
