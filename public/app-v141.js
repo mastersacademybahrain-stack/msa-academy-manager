@@ -184,7 +184,8 @@ c.innerHTML='<div class=hero><div class=hero-content><div><h1>Academy Analytics<
 function financialDashboard(c){
 var today=new Date(),todayISO=localISO(today),from=document.getElementById('ffrom')?.value||localISO(new Date(today.getFullYear(),today.getMonth(),1)),to=document.getElementById('fto')?.value||todayISO;
 var regs=[];st.players.forEach(function(p){(p.registrations||[]).forEach(function(r){var d=r.registration_date||String(r.created_at||'').slice(0,10);if((!from||d>=from)&&(!to||d<=to))regs.push({...r,player_id:p.id,player_name:p.name})})});
-var money=function(r){return Number(r.net_price??r.discounted_price??r.reference_price??0)||0},reference=function(r){return Number(r.reference_price??r.price??money(r))||0};
+var reference=function(r){return Number(r.reference_price??r.price??0)||0};
+   var money=function(r){var ref=reference(r),disc=Number(r.discount_percentage);if(ref>0&&Number.isFinite(disc)&&disc>0)return Math.round(ref*(1-disc/100)*100)/100;var dp=Number(r.discounted_price);if(Number.isFinite(dp)&&dp>=0)return Math.round(dp*100)/100;return ref};
 var net=regs.reduce((a,r)=>a+money(r),0),gross=regs.reduce((a,r)=>a+reference(r),0),discounts=Math.max(0,gross-net),paidRegs=regs.filter(r=>r.paid),unpaidRegs=regs.filter(r=>!r.paid),collected=paidRegs.reduce((a,r)=>a+money(r),0),outstanding=unpaidRegs.reduce((a,r)=>a+money(r),0),avg=regs.length?net/regs.length:0;
 var sportColors={Tennis:'#1476e8',Swimming:'#12a878',Padel:'#f5ad16','Water Polo':'#7b61ff',Taekwondo:'#e14d5a',Fitness:'#8b5a2b'};
 var sportRevenue=sports.map(function(sp){var rr=regs.filter(r=>r.sport===sp);return {label:sp,value:rr.reduce((a,r)=>a+money(r),0),count:rr.length}}).filter(x=>x.value||x.count);
