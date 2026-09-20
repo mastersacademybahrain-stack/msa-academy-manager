@@ -2,13 +2,13 @@
   "name":"MSA Academy Manager",
   "short_name":"MSA Manager",
   "description":"MSA Academy Manager — Where Champions Are Made",
-  "start_url":"/?v=180",
+  "start_url":"/?v=188",
   "scope":"/",
   "display":"standalone",
   "orientation":"portrait-primary",
   "background_color":"#5a3a5f",
   "theme_color":"#3b1f78",
   "icons":[
-    {"src":"/msa-splash.svg?v=180","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}
+    {"src":"/msa-splash.svg?v=188","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}
   ]
 }
