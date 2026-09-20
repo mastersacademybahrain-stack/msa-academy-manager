@@ -8,6 +8,7 @@ export default async function(req,res){
  if(guest_name?.trim()){
   const s=await db.query('SELECT id,sport,day_of_week FROM academy_sessions WHERE id=$1',[session_id]);
   if(!s.rows.length)return res.status(404).json({error:'Session not found'});
+  if(!session_date)return res.status(400).json({error:'Session date required'});
   const x=await db.query('INSERT INTO attendance_guests(academy_session_id,guest_name,status,session_date) VALUES($1,$2,$3,$4) RETURNING id,guest_name,status,session_date',[session_id,guest_name.trim(),status,session_date]);
   return res.json(x.rows[0]);
  }
