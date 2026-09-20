@@ -15,7 +15,8 @@ export default async function(req,res){
  const s=await db.query('SELECT id,sport,day_of_week FROM academy_sessions WHERE id=$1',[session_id]);
  const p=await db.query('SELECT id,sport FROM players WHERE id=$1',[player_id]);
  if(!s.rows.length||!p.rows.length)return res.status(404).json({error:'Session or player not found'});
- if(s.rows[0].sport!==p.rows[0].sport)return res.status(400).json({error:'Player sport does not match session'});
+ const r=await db.query('SELECT 1 FROM player_registrations WHERE player_id=$1 AND sport=$2 LIMIT 1',[player_id,s.rows[0].sport]);
+ if(s.rows[0].sport!==p.rows[0].sport&&!r.rows.length)return res.status(400).json({error:'Player has no registration for this sport'});
  await db.query('INSERT INTO attendance(academy_session_id,player_id,status) VALUES($1,$2,$3) ON CONFLICT(academy_session_id,player_id) DO UPDATE SET status=EXCLUDED.status,updated_at=now()',[session_id,player_id,status]);
  if(session_date)await db.query('INSERT INTO player_schedule_occurrences(player_id,session_id,session_date,status) VALUES($1,$2,$3,$4) ON CONFLICT(player_id,session_id,session_date) DO UPDATE SET status=EXCLUDED.status,updated_at=now()',[player_id,session_id,session_date,status]);
  res.json({ok:true});
