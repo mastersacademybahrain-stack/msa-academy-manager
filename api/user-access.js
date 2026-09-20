@@ -12,7 +12,7 @@ export default async function(req,res){
   const e=String(email||'').trim().toLowerCase();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return res.status(400).json({error:'Enter a valid email'});
   if(!['manager','coach'].includes(access_type))return res.status(400).json({error:'Access type must be manager or coach'});
-  const r=await db.query("INSERT INTO user_access(email,access_type,active,updated_at) VALUES($1,$2,true,now()) ON CONFLICT(email) DO UPDATE SET access_type=EXCLUDED.access_type,active=true,updated_at=now() RETURNING id,email,access_type,active",[e,access_type]);
+  const r=await db.query("WITH invite AS (INSERT INTO invited_users(email) VALUES($1) ON CONFLICT(email) DO NOTHING) INSERT INTO user_access(email,access_type,active,updated_at) VALUES($1,$2,true,now()) ON CONFLICT(email) DO UPDATE SET access_type=EXCLUDED.access_type,active=true,updated_at=now() RETURNING id,email,access_type,active",[e,access_type]);
   return res.json(r.rows[0]);
  }
  const id=req.body?.id||req.query?.id;
