@@ -17,6 +17,9 @@ export default async function(req,res){
  }
  const id=req.body?.id||req.query?.id;
  if(!id)return res.status(400).json({error:'Access record required'});
+ const accessRow=await db.query('SELECT email FROM user_access WHERE id=$1 LIMIT 1',[id]);
+ if(!accessRow.rows[0])return res.status(404).json({error:'Access record not found'});
  await db.query('UPDATE user_access SET active=false,updated_at=now() WHERE id=$1',[id]);
+ await db.query('DELETE FROM invited_users WHERE lower(email)=lower($1)',[accessRow.rows[0].email]);
  res.json({ok:true});
 }
