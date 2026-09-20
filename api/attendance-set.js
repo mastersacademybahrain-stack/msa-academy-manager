@@ -1,6 +1,8 @@
 import { db } from 'hatchable';
+import { requireAttendanceAccess } from '../lib/access.js';
 export const access='user'; export const methods=['POST'];
 export default async function(req,res){
+ if(!(await requireAttendanceAccess(req,res)))return;
  const {session_id,player_id,status,session_date,guest_id}=req.body||{};
  if(!status||!['Present','Absent','Pending'].includes(status))return res.status(400).json({error:'Invalid attendance'});
  if(guest_id){await db.query('UPDATE attendance_guests SET status=$1 WHERE id=$2',[status,guest_id]);return res.json({ok:true});}
