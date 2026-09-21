@@ -263,14 +263,7 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    let r=await fetch(API+'/evaluation-report-pdf?id='+encodeURIComponent(id)+'&v=242');
-    let x=await r.json();
-    if(!r.ok)throw Error(x.error||'PDF generation failed.');
-    let raw=atob(x.pdf),bytes=new Uint8Array(raw.length);
-    for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
-    let blob=new Blob([bytes],{type:'application/pdf'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-    a.href=url;a.download=x.filename||'MSA_Player_Evaluation_Report.pdf';document.body.appendChild(a);a.click();a.remove();
-    setTimeout(function(){URL.revokeObjectURL(url)},1500);
+    generateEvaluationPDF(e);
   }catch(err){console.error(err);alert('PDF generation failed: '+(err?.message||err));}
 }
 function generateEvaluationPDF(source){
