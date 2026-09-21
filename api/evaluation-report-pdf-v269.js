@@ -1,6 +1,6 @@
 import { browser, db } from 'hatchable';
 import { getAppAccess } from '../lib/access.js';
-export const access='user';
+export const access='public';
 export const methods=['GET'];
 export default async function(req,res){
  const app=await getAppAccess(req);
