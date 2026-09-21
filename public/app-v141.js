@@ -281,38 +281,36 @@ function generateEvaluationPDF(source){
   if(!isManager())return alert('Only Owner and Manager can generate PDF reports.');
   let feedback=source?.comments||document.getElementById('evFeedback')?.value||'';
   let J=window.jspdf?.jsPDF;if(!J)return alert('PDF generator is still loading. Please try again.');
-  let doc=new J({orientation:'portrait',unit:'mm',format:'a4'});
-  let W=210,H=297;
-  let theme={Tennis:['#0b2a68','#f2b233','#e7f2ff'],Padel:['#24134e','#b9f000','#edf8d5'],Swimming:['#006bb6','#19b6e8','#e5f8ff'],Taekwondo:['#b51222','#ef233c','#fff0f1']}[sport]||['#2b1758','#f2b233','#f7f6fa'];
-  doc.setFillColor(248,247,250);doc.rect(0,0,W,H,'F');
-  doc.setFillColor(theme[0]);doc.rect(0,0,W,88,'F');
-  doc.setFillColor(theme[1]);doc.rect(0,82,W,7,'F');
-  doc.setFillColor(255,255,255);doc.circle(25,24,15,'F');
-  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(15);doc.text('MSA',25,29,{align:'center'});
-  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(28);doc.text(String(sport).toUpperCase(),47,28);
-  doc.setFontSize(12);doc.text('PLAYER EVALUATION REPORT',47,38);
-  doc.setFontSize(8);doc.setTextColor(230,235,245);doc.text('WHERE CHAMPS ARE MADE',47,48);
-  doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text('PLAY   •   LEARN   •   GROW',47,61);
-  doc.setFontSize(8);doc.text('DISCIPLINE   •   FOCUS   •   CONFIDENCE   •   CHAMPIONS',47,70);
-  doc.setFillColor(theme[1]);doc.rect(0,76,68,12,'F');doc.setTextColor(theme[0]);doc.setFontSize(9);doc.text('MSA ACADEMY',8,84);
-  doc.setFillColor(255,255,255);doc.roundedRect(10,98,190,42,6,6,'F');
-  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('PLAYER NAME',17,109);doc.text('SPORT',17,121);doc.text('LEVEL',17,133);
-  doc.setFont('helvetica','normal');doc.setTextColor('#21183d');doc.text(String(p.name||''),52,109);doc.text(String(sport),52,121);doc.text(String(level),52,133);
-  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.text('DATE',113,109);doc.text('COACH',113,121);
-  doc.setFont('helvetica','normal');doc.setTextColor('#21183d');doc.text(String(source?.evaluation_date||new Date().toISOString().slice(0,10)),145,109);doc.text(String(source?.coach_name||st.user?.name||st.user?.email||'MSA Coach'),145,121);
-  doc.setFillColor(255,255,255);doc.roundedRect(10,149,190,88,6,6,'F');
-  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('SKILL ASSESSMENT',17,161);
-  doc.setFontSize(8);doc.setTextColor('#746b86');doc.text('Rate each skill from 1 to 5',17,168);
-  doc.setFillColor(theme[0]);doc.roundedRect(17,173,176,10,2,2,'F');doc.setTextColor(255,255,255);doc.setFontSize(8);doc.text('#',22,180);doc.text('SKILL',37,180);doc.text('RATING (1-5)',162,180);
-  let y=191;
-  skills.forEach(function(item,i){let key=item.replace(/[^a-z0-9]+/gi,'_').toLowerCase(),v=Number(scores[key]||0);doc.setTextColor('#21183d');doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.text(String(i+1),22,y);doc.text(String(item).slice(0,54),37,y);doc.setFont('helvetica','bold');doc.text(v?v+'/5':'—',174,y,{align:'right'});doc.setDrawColor('#dfe3e8');doc.line(17,y+5,193,y+5);y+=11});
-  doc.setFillColor(theme[1]);doc.roundedRect(10,244,190,25,5,5,'F');doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('OVERALL PERFORMANCE',18,255);doc.setFontSize(19);doc.text(String(overall)+'/5',183,256,{align:'right'});
-  doc.setFillColor(255,255,255);doc.roundedRect(10,275,190,18,5,5,'F');doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text('COACH FEEDBACK',17,283);
-  doc.setTextColor('#21183d');doc.setFont('helvetica','normal');doc.setFontSize(8);
-  let lines=doc.splitTextToSize(feedback||'No written feedback provided.',174);doc.text(lines.slice(0,2),17,289);
-  doc.setFillColor(theme[0]);doc.rect(0,294,W,3,'F');doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.text('BUILD SKILLS     GAIN CONFIDENCE     MAKE FRIENDS     A BRIGHTER TOMORROW',105,287,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.text('REEF ISLAND, BAHRAIN   •   36885993   •   @msaacademybahrain',105,295,{align:'center'});
-  doc.save((String(p.name||'Player').replace(/[^a-z0-9]+/gi,'_')+'_'+sport+'_Evaluation_Report.pdf'));
+  let doc=new J({orientation:'portrait',unit:'mm',format:'a4'}),W=210,H=297;
+  let C={navy:[8,42,104],yellow:[248,194,25],light:[239,247,255],line:[205,219,236],ink:[20,42,83],white:[255,255,255]};
+  if(sport==='Swimming')C={navy:[0,92,155],yellow:[26,190,225],light:[232,249,255],line:[185,224,239],ink:[0,55,105],white:[255,255,255]};
+  if(sport==='Padel')C={navy:[36,19,78],yellow:[185,240,0],light:[244,250,229],line:[213,225,196],ink:[36,19,78],white:[255,255,255]};
+  if(sport==='Taekwondo')C={navy:[181,18,34],yellow:[239,35,60],light:[255,242,243],line:[239,199,203],ink:[120,15,25],white:[255,255,255]};
+  function fill(c){doc.setFillColor(c[0],c[1],c[2])}function text(c){doc.setTextColor(c[0],c[1],c[2])}
+  // Approved MSA report structure: photographic-style sport header, brand messaging, details card, skills table, overall result, feedback and footer.
+  fill(C.light);doc.rect(0,0,W,H,'F');fill(C.navy);doc.rect(0,0,W,91,'F');
+  // sport-photo treatment
+  fill([30,85,125]);doc.rect(0,0,W,54,'F');fill([105,164,195]);doc.rect(0,0,W,26,'F');fill([55,118,76]);doc.rect(0,50,W,41,'F');
+  doc.setDrawColor(220,235,245);doc.setLineWidth(.35);for(let i=-5;i<16;i++)doc.line(i*16,50,(i*16)+28,91);
+  fill(C.yellow);doc.circle(150,61,13,'F');fill([215,230,235]);doc.setDrawColor(255,255,255);doc.setLineWidth(.7);for(let i=0;i<7;i++)doc.line(i*35,43,i*35+45,78);
+  // branding
+  text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(25);doc.text('MSA',12,23);text(C.yellow);doc.text('S',27,23);text(C.navy);doc.setFontSize(6.5);doc.text('ACADEMY',13,31);doc.setFontSize(4.3);doc.text('WHERE CHAMPS ARE MADE',13,37);
+  text(C.navy);doc.setFontSize(9);doc.text('PLAY',103,14);doc.text('LEARN',103,22);doc.text('GROW',103,30);doc.setLineWidth(1.1);doc.line(102,34,130,31);
+  doc.setFontSize(6.2);doc.text('DISCIPLINE',164,13);doc.text('FOCUS',164,20);doc.text('CONFIDENCE',164,27);doc.text('CHAMPIONS',164,34);fill(C.yellow);doc.rect(164,38,21,1.5,'F');
+  fill(C.white);doc.circle(178,56,16,'F');doc.setDrawColor(C.yellow[0],C.yellow[1],C.yellow[2]);doc.setLineWidth(1);doc.circle(178,56,14,'S');text(C.navy);doc.setFontSize(4.5);doc.text('MASTERS SPORT',178,50,{align:'center'});doc.setFontSize(10);doc.text('MSA',178,59,{align:'center'});doc.setFontSize(4.5);doc.text('ACADEMY',178,65,{align:'center'});
+  text(C.white);doc.setFont('helvetica','bold');doc.setFontSize(27);doc.text(String(sport).toUpperCase(),11,67);fill(C.yellow);doc.roundedRect(10,72,92,12,2,2,'F');text(C.navy);doc.setFontSize(8.5);doc.text('PLAYER EVALUATION REPORT',15,80);
+  text(C.white);doc.setFontSize(6);doc.text('REEF ISLAND',178,74,{align:'center'});doc.text('BAHRAIN',178,81,{align:'center'});
+  // player details
+  fill(C.white);doc.roundedRect(8,96,194,42,6,6,'F');text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(7.3);doc.text('PLAYER NAME:',15,107);doc.text('SPORT:',15,119);doc.text('LEVEL:',15,131);doc.text('DATE:',112,107);doc.text('COACH:',112,119);doc.setDrawColor(180,200,225);doc.setLineWidth(.4);doc.line(105,101,105,133);doc.setFont('helvetica','normal');text(C.ink);doc.setFontSize(8);doc.text(String(p.name||''),51,107);doc.text(String(sport),51,119);doc.text(String(level),51,131);doc.text(String(source?.evaluation_date||new Date().toISOString().slice(0,10)),142,107);doc.text(String(source?.coach_name||st.user?.name||st.user?.email||'MSA Coach'),142,119);
+  // skills
+  fill(C.white);doc.roundedRect(8,143,194,102,6,6,'F');text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('SKILLS EVALUATION',15,155);doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.text('Rating scale: 1 = Needs Improvement   •   5 = Excellent',15,162);fill(C.navy);doc.roundedRect(13,167,184,10,2,2,'F');text(C.white);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.text('#',19,174);doc.text('SKILL',35,174);doc.text('RATING (1-5)',164,174);
+  let y=185;skills.slice(0,5).forEach(function(item,i){let key=item.replace(/[^a-z0-9]+/gi,'_').toLowerCase(),v=Number(scores[key]||0);text(C.ink);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.text(String(i+1),19,y);doc.text(String(item).slice(0,58),35,y);doc.setFont('helvetica','bold');doc.text(v?v+'/5':'—',178,y,{align:'right'});doc.setDrawColor(C.line[0],C.line[1],C.line[2]);doc.line(14,y+5,196,y+5);y+=11});
+  fill(C.yellow);doc.roundedRect(13,231,184,14,2,2,'F');text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('OVERALL PERFORMANCE',19,240);doc.setFontSize(14);doc.text(String(overall)+'/5',188,241,{align:'right'});
+  // feedback and footer
+  text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('COACH FEEDBACK',14,256);fill(C.light);doc.roundedRect(14,260,182,21,4,4,'F');text(C.ink);doc.setFont('helvetica','normal');doc.setFontSize(7.5);let lines=doc.splitTextToSize(feedback||'No written feedback provided.',170);doc.text(lines.slice(0,3),19,268);
+  text(C.navy);doc.setFont('helvetica','bold');doc.setFontSize(6.3);doc.text('🏆  BUILD SKILLS',16,288);doc.text('▮▮▮  GAIN CONFIDENCE',63,288);doc.text('●●●  MAKE FRIENDS',120,288);doc.text('★  A BRIGHTER TOMORROW',160,288);
+  fill(C.navy);doc.rect(0,291,W,6,'F');text(C.white);doc.setFont('helvetica','normal');doc.setFontSize(5.3);doc.text('REEF ISLAND, BAHRAIN   •   36885993   •   @msaacademybahrain',105,295,{align:'center'});
+  doc.save(String(p.name||'Player').replace(/[^a-z0-9]+/gi,'_')+'_'+sport+'_Evaluation_Report.pdf');
 }
 function evaluation(c){
   let pid=st.evaluationPlayerId||'',sport=st.evaluationSport||'',level=st.evaluationLevel||'',editId=st.evaluationEditId||'',overall=st.evaluationOverall||0;
