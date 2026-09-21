@@ -258,6 +258,54 @@ function setEvaluationRating(btn){
   box.querySelectorAll('.eval-star').forEach(function(x){x.classList.toggle('selected',Number(x.dataset.value)<=v);});
   box.dataset.value=String(v);
 }
+function generateEvaluationPDFById(id){
+  let e=(st.evaluations||[]).find(function(x){return x.id===id});
+  if(!e)return alert('Evaluation not found.');
+  generateEvaluationPDF(e);
+}
+function generateEvaluationPDF(source){
+  let pid=source?.player_id||st.evaluationPlayerId||'',sport=source?.sport||st.evaluationSport||'',level=source?.level||st.evaluationLevel||'';
+  let p=st.players.find(function(x){return x.id===pid}),cfg=evaluationConfig[sport];
+  if(!p||!cfg||!level)return alert('Complete the player, sport and level first.');
+  let skills=cfg.levels[level]||[],scores=source?.scores||{};
+  if(!source){
+    document.querySelectorAll('.eval-rating[data-name]').forEach(function(x){if(x.dataset.name!=='overall')scores[x.dataset.name]=Number(x.dataset.value||0)});
+    let missing=skills.some(function(item){let key=item.replace(/[^a-z0-9]+/gi,'_').toLowerCase();return !scores[key]});
+    if(missing)return alert('Please rate all 5 skills before generating the report.');
+  }
+  let overall=Number(source?.overall_rating||document.querySelector('.eval-rating[data-name="overall"]')?.dataset.value||st.evaluationOverall||0);
+  if(!overall)return alert('Please rate Overall Performance from 1 to 5.');
+  let feedback=source?.comments||document.getElementById('evFeedback')?.value||'';
+  let J=window.jspdf?.jsPDF;if(!J)return alert('PDF generator is still loading. Please try again.');
+  let doc=new J({orientation:'portrait',unit:'mm',format:'a4'});
+  let W=210,H=297;
+  let theme={Tennis:['#0b2a68','#f2b233','#e7f2ff'],Padel:['#24134e','#f2b233','#efe9ff'],Swimming:['#006bb6','#19b6e8','#e5f8ff'],Taekwondo:['#21185c','#f2b233','#fff1f2']}[sport]||['#2b1758','#f2b233','#f7f6fa'];
+  doc.setFillColor(theme[2]);doc.rect(0,0,W,H,'F');
+  doc.setFillColor(theme[0]);doc.rect(0,0,W,74,'F');
+  doc.setFillColor(theme[1]);doc.rect(0,68,W,6,'F');
+  doc.setFillColor(255,255,255);doc.circle(24,24,14,'F');
+  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('MSA',24,27,{align:'center'});
+  doc.setTextColor(255,255,255);doc.setFontSize(24);doc.text(String(sport).toUpperCase(),45,27);doc.setFontSize(11);doc.text('PLAYER PERFORMANCE REPORT',45,36);
+  doc.setFontSize(8);doc.setTextColor(235,230,245);doc.text('WHERE CHAMPS ARE MADE',45,45);
+  doc.setDrawColor(255,255,255);doc.setLineWidth(.5);doc.line(45,50,108,50);
+  doc.setTextColor(255,255,255);doc.setFontSize(9);doc.text('DISCIPLINE   •   FOCUS   •   CONFIDENCE   •   CHAMPIONS',45,59);
+  doc.setFillColor(255,255,255);doc.roundedRect(10,82,190,39,5,5,'F');
+  doc.setTextColor('#21183d');doc.setFontSize(10);doc.setFont('helvetica','bold');doc.text('PLAYER',16,92);doc.text('SPORT',16,104);doc.text('LEVEL',16,116);
+  doc.setFont('helvetica','normal');doc.text(p.name||'',45,92);doc.text(sport,45,104);doc.text(level,45,116);
+  doc.setFont('helvetica','bold');doc.text('DATE',110,92);doc.text('COACH',110,104);
+  doc.setFont('helvetica','normal');doc.text(source?.evaluation_date||new Date().toISOString().slice(0,10),140,92);doc.text(source?.coach_name||st.user?.name||st.user?.email||'MSA Coach',140,104);
+  doc.setFillColor(255,255,255);doc.roundedRect(10,130,190,83,5,5,'F');
+  doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('SKILLS EVALUATION',16,141);
+  doc.setFontSize(8);doc.setTextColor('#746b86');doc.text('Rating scale: 1 = Needs Improvement   •   5 = Excellent',16,148);
+  let y=158;
+  skills.forEach(function(item,i){let key=item.replace(/[^a-z0-9]+/gi,'_').toLowerCase(),v=Number(scores[key]||0);doc.setTextColor('#21183d');doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text((i+1)+'. '+item,17,y);doc.setFont('helvetica','bold');doc.text(v?v+'/5':'—',181,y,{align:'right'});doc.setDrawColor('#ddd8e5');doc.line(17,y+4,193,y+4);y+=11});
+  doc.setFillColor(theme[1]);doc.roundedRect(10,220,190,24,5,5,'F');doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('OVERALL PERFORMANCE',17,230);doc.setFontSize(18);doc.text(String(overall)+'/5',181,231,{align:'right'});
+  doc.setFillColor(255,255,255);doc.roundedRect(10,251,190,31,5,5,'F');doc.setTextColor(theme[0]);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('COACH FEEDBACK',16,260);
+  doc.setTextColor('#21183d');doc.setFont('helvetica','normal');doc.setFontSize(9);
+  let lines=doc.splitTextToSize(feedback||'No written feedback provided.',174);doc.text(lines.slice(0,5),16,268);
+  doc.setFillColor(theme[0]);doc.rect(0,288,W,9,'F');doc.setTextColor(255,255,255);doc.setFontSize(8);doc.text('MSA Academy • Reef Island, Bahrain • 36885993 • msaacademybahrain',105,294,{align:'center'});
+  doc.save((String(p.name||'Player').replace(/[^a-z0-9]+/gi,'_')+'_'+sport+'_Evaluation_Report.pdf'));
+}
 function evaluation(c){
   let pid=st.evaluationPlayerId||'',sport=st.evaluationSport||'',level=st.evaluationLevel||'',editId=st.evaluationEditId||'',overall=st.evaluationOverall||0;
   let p=st.players.find(function(x){return x.id===pid});
@@ -272,8 +320,8 @@ function evaluation(c){
     '<div class="card" style="margin-top:12px"><h3>Select Level</h3><div style="display:flex;gap:8px;flex-wrap:wrap">'+levels.map(function(x){return '<button type="button" class="eval-level '+(level===x?'selected':'')+'" onclick="st.evaluationLevel=\''+x.replace(/'/g,"\\'")+'\';render()">'+x+'</button>'}).join('')+'</div></div>'+
     (level?'<div class="card" style="margin-top:12px"><h3>'+level+' — 5 Skills</h3><div class="grid">'+skills.map(function(item){let key=item.replace(/[^a-z0-9]+/gi,'_').toLowerCase();return '<div class="stat"><div class="row"><b>'+item+'</b><span class="small">Rate 1–5</span></div>'+evaluationRating(key,scores[key]||0)+'</div>'}).join('')+'</div></div>':'<div class="small" style="margin:12px 0">Select a level to show the five skills for that level.</div>')+
     '<div class="card" style="margin-top:12px"><h3>Overall Performance</h3><div class="small" style="margin-bottom:8px">Rate the player from 1 to 5.</div>'+evaluationRating('overall',overall)+'</div>'+
-    '<label>Coach Feedback<textarea id="evFeedback" rows="4" placeholder="Write your feedback...">'+(editing?.comments||'')+'</textarea></label><button class="p" '+(!level?'disabled':'')+' onclick="saveEvaluation()">Save Evaluation</button></div>':'';
-  let history=pid&&sport?'<div class="card"><div class="row"><div><h2>Evaluation History</h2><div class="small">Progress history for '+(p?.name||'Player')+' · '+sport+'</div></div><button class="p" onclick="st.evaluationEditId=null;st.evaluationLevel=null;st.evaluationOverall=0;render()">＋ New Evaluation</button></div>'+(existing.map(function(e){let avg=Object.values(e.scores||{}).length?Math.round(Object.values(e.scores||{}).reduce(function(a,v){return a+Number(v||0)},0)/Object.values(e.scores||{}).length*10)/10:0;return '<div class="session"><div class="row"><div><b>'+e.evaluation_date+'</b><div class="small">'+(e.level||'Level not set')+(e.coach_name?' · '+e.coach_name:'')+'</div></div><div><span class="pill">'+(e.overall_rating?e.overall_rating+'/5 overall':'No overall rating')+'</span> <button class="s" onclick="st.evaluationEditId=\''+e.id+'\';st.evaluationLevel=\''+(e.level||'').replace(/'/g,"\\'")+'\';st.evaluationOverall='+(Number(e.overall_rating)||0)+';render()">Edit</button></div></div><div class="small" style="margin-top:7px">'+(e.comments||'')+'</div></div>'}).join('')||'<span class="small">No evaluations yet.</span>')+'</div>':'';
+    '<label>Coach Feedback<textarea id="evFeedback" rows="4" placeholder="Write your feedback...">'+(editing?.comments||'')+'</textarea></label><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="p" '+(!level?'disabled':'')+' onclick="saveEvaluation()">Save Evaluation</button><button class="s" '+(!level?'disabled':'')+' onclick="generateEvaluationPDF()">Generate PDF Report</button></div></div>':'';
+  let history=pid&&sport?'<div class="card"><div class="row"><div><h2>Evaluation History</h2><div class="small">Progress history for '+(p?.name||'Player')+' · '+sport+'</div></div><button class="p" onclick="st.evaluationEditId=null;st.evaluationLevel=null;st.evaluationOverall=0;render()">＋ New Evaluation</button></div>'+(existing.map(function(e){let avg=Object.values(e.scores||{}).length?Math.round(Object.values(e.scores||{}).reduce(function(a,v){return a+Number(v||0)},0)/Object.values(e.scores||{}).length*10)/10:0;return '<div class="session"><div class="row"><div><b>'+e.evaluation_date+'</b><div class="small">'+(e.level||'Level not set')+(e.coach_name?' · '+e.coach_name:'')+'</div></div><div><span class="pill">'+(e.overall_rating?e.overall_rating+'/5 overall':'No overall rating')+'</span> <button class="s" onclick="st.evaluationEditId=\''+e.id+'\';st.evaluationLevel=\''+(e.level||'').replace(/'/g,"\\'")+'\';st.evaluationOverall='+(Number(e.overall_rating)||0)+';render()">Edit</button> <button class="s" onclick="generateEvaluationPDFById(\''+e.id+'\')">PDF</button></div></div><div class="small" style="margin-top:7px">'+(e.comments||'')+'</div></div>'}).join('')||'<span class="small">No evaluations yet.</span>')+'</div>':'';
   c.innerHTML='<div class="pagehead"><div><h1>Player Evaluation</h1><div class="small">Simple coach performance evaluation by sport and level.</div></div></div><div class="card"><div class="grid"><label>Player<select id="evPlayer"><option value="">Select player...</option>'+st.players.slice().sort(function(a,b){return String(a.name||'').localeCompare(String(b.name||''))}).map(function(x){return '<option value="'+x.id+'" '+(pid===x.id?'selected':'')+'>'+x.name+'</option>'}).join('')+'</select></label><label>Sport<select id="evSport" '+(!pid?'disabled':'')+'><option value="">Select sport...</option>'+playerSports.map(function(x){return '<option value="'+x+'" '+(sport===x?'selected':'')+'>'+x+'</option>'}).join('')+'</select></label></div></div>'+form+history;
   let ps=document.getElementById('evPlayer'),ss=document.getElementById('evSport');
   if(ps)ps.onchange=function(){st.evaluationPlayerId=this.value;st.evaluationSport='';st.evaluationLevel='';st.evaluationOverall=0;st.evaluationEditId=null;render()};
