@@ -272,21 +272,22 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    let r=await fetch(API+'/evaluation-report-pdf?id='+encodeURIComponent(id),{
-      method:'GET',credentials:'include',cache:'no-store',headers:{'Accept':'application/pdf'}
-    });
+    let r=await fetch(API+'/evaluation-report-pdf?id='+encodeURIComponent(id),{method:'GET',credentials:'include'});
     let ct=(r.headers.get('content-type')||'').toLowerCase();
     if(!r.ok||!ct.includes('application/pdf')){
-      let raw='';try{raw=await r.text()}catch(_){}
-      throw Error('HTTP '+r.status+' · '+(raw||'PDF response was not received.'));
+      let msg='PDF generation failed.';
+      try{let x=await r.json();msg=x.message||x.error||msg}catch(_){}
+      if(r.status===401){location='/login?next=/';return}
+      throw Error(msg);
     }
     let blob=await r.blob();
-    if(!blob.size)throw Error('Empty PDF response.');
     let url=URL.createObjectURL(blob);
-    let a=document.createElement('a');a.href=url;a.download='MSA_Player_Evaluation_Report.pdf';a.style.display='none';
+    let a=document.createElement('a');
+    a.href=url;
+    a.download='MSA_Player_Evaluation_Report.pdf';
     document.body.appendChild(a);a.click();a.remove();
-    setTimeout(function(){URL.revokeObjectURL(url)},15000);
-  }catch(err){console.error('MSA PDF download failed',err);alert('PDF generation failed: '+(err?.message||err));}
+    setTimeout(function(){URL.revokeObjectURL(url)},10000);
+  }catch(err){console.error(err);alert('PDF generation failed: '+(err?.message||err));}
 }
 function generateEvaluationPDF(source){
   let pid=source?.player_id||st.evaluationPlayerId||'',sport=source?.sport||st.evaluationSport||'',level=source?.level||st.evaluationLevel||'';
