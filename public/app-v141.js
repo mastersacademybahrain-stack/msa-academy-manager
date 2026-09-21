@@ -237,6 +237,34 @@ function players(c){
  let clear=document.getElementById('clearPlayerSearch');if(clear)clear.onclick=function(){st.playerSearch='';render()};
  c.querySelectorAll('.player360Row').forEach(function(el){el.onclick=function(){st.player360=el.dataset.playerId;render()}});
 }
+// v220 definitive Player 360 Players-tab integration
+window.players=function(c){
+  let q=String(st.playerSearch||'');
+  if(st.player360){
+    let p=(st.players||[]).find(x=>x.id===st.player360);
+    if(p){player360(c,p);return}
+    st.player360=null;
+  }
+  let esc=function(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')};
+  let rows=(st.players||[]).filter(function(p){
+    let s=[p.name,p.phone,p.email].filter(Boolean).join(' ').toLowerCase();
+    return !q||s.includes(q.toLowerCase());
+  });
+  c.innerHTML='<div class="pagehead"><div><h1>Players</h1><div class="small">Search a player and open their complete Player 360 profile.</div></div></div>'+
+  '<div class="card"><div class="row"><div style="flex:1;min-width:220px"><input id="player360Search" placeholder="Search player by name, phone or email" value="'+esc(q)+'"></div><button class="s" id="player360Clear">Clear</button><span class="pill">'+rows.length+' player'+(rows.length===1?'':'s')+'</span></div></div>'+
+  '<div class="card"><h2>Player Directory</h2>'+(
+    rows.map(function(p){
+      let regs=p.registrations||[];
+      let sports=[...new Set(regs.map(function(r){return r.sport}).concat(p.sport?[p.sport]:[]).filter(Boolean))];
+      let present=(st.occurrences||[]).filter(function(o){return o.player_id===p.id&&o.status==='Present'}).length;
+      return '<div class="session"><div class="row"><div><b>'+esc(p.name||'Unnamed player')+'</b><div class="small">'+sports.map(sportIcon).join(' ')+' '+esc(sports.join(' · ')||'No sport assigned')+' · '+regs.length+' registration'+(regs.length===1?'':'s')+' · '+present+' present</div></div><button class="p" data-player360="'+esc(p.id)+'">Open Player 360 →</button></div></div>';
+    }).join('')||'<span class="small">No players match your search.</span>'
+  )+'</div>';
+  let inp=document.getElementById('player360Search');
+  if(inp){inp.oninput=function(){st.playerSearch=this.value;players(c);let n=document.getElementById('player360Search');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}}}
+  let clr=document.getElementById('player360Clear');if(clr)clr.onclick=function(){st.playerSearch='';players(c)};
+  c.querySelectorAll('[data-player360]').forEach(function(b){b.onclick=function(){st.player360=b.getAttribute('data-player360');render()}});
+};
 load();alert('Session created successfully for '+sd+'.');}async function updateSession(id){let sd=document.getElementById('sstart').value,all=document.getElementById('sall')?.checked!==false,w=Math.max(1,parseInt(document.getElementById('sweeks')?.value||'1',10)),coach_ids=[...document.querySelectorAll('.coachSel:checked')].map(x=>x.value);if(!sd)return alert('Select the effective start date.');if(!all&&!Number.isFinite(w))return alert('Enter a valid number of weeks.');await j('/session-update',{method:'POST',body:JSON.stringify({session_id:id,sport:sport.value,day_of_week:+day.value,start_time:time.value,coach_id:coach_ids[0]||null,coach_ids,effective_start_date:sd,weeks:w,apply_all:all,historical_date:st.selectedDate||null,tennis_categories:[...document.querySelectorAll('.sc:checked')].map(x=>x.value),location:document.getElementById('location')?.value||null})});st.edit=false;st.selected=null;load()}async function deleteSession(id){let s=st.sessions.find(x=>x.id===id),base=st.selectedDate||localISO(new Date());if(!s)return;let choice=prompt('Delete session:\n\n1 = Delete this specific session only ('+base+')\n2 = Delete the entire session series\n3 = Delete this session and the following weeks\n\nFor option 3, enter the number of weeks after choosing it.','1');if(choice===null)return;let mode=String(choice).trim();if(mode==='1'){if(!confirm('Delete ONLY the session on '+base+'? Other dates in this series will stay unchanged.'))return;await j('/session-delete',{method:'POST',body:JSON.stringify({session_id:id,delete_date:base})});}else if(mode==='2'){if(!confirm('Delete the entire session series?'))return;await j('/session-delete',{method:'POST',body:JSON.stringify({session_id:id})});}else if(mode==='3'){let w=prompt('How many weeks should be deleted starting '+base+'?','1');if(w===null)return;let n=parseInt(w,10);if(!Number.isFinite(n)||n<1)return alert('Enter a positive number of weeks.');if(!confirm('Delete this session from '+base+' forward for '+n+' week'+(n===1?'':'s')+' only?'))return;await j('/session-delete',{method:'POST',body:JSON.stringify({session_id:id,effective_start_date:base,forward_weeks:n})});}else return alert('Choose 1, 2, or 3.');st.selected=null;load()}function players(c){
  let e=st.players.find(x=>x.id===st.selected);
  if(e){
