@@ -258,7 +258,7 @@ function registration(c){
   document.getElementById('ps').value=er.sport||'';
   refreshRegistrationForm();
   document.getElementById('pp').value=er.package_id||'';
-  if(er.sport==='Tennis')document.querySelectorAll('.tc').forEach(function(x){x.checked=(er.tennis_categories||[]).includes(x.value)});
+  if(er.sport==='Tennis'){let savedCats=er.tennis_categories;try{if(typeof savedCats==='string')savedCats=JSON.parse(savedCats)}catch(e){savedCats=[]}if(!Array.isArray(savedCats))savedCats=[];savedCats=savedCats.map(function(x){return String(x).trim()});document.querySelectorAll('.tc').forEach(function(x){x.checked=savedCats.includes(x.value)})}
   refreshRegistrationPricing();
  }
 }
@@ -273,7 +273,7 @@ function legacyRegistration(c){let e=st.players.find(x=>x.id===st.selected);if(e
  sp.innerHTML='<option value="">Select sport...</option>'+choices.map(function(x){return '<option value="'+x+'">'+x+'</option>'}).join('');
  if(current&&choices.includes(current))sp.value=current;else sp.value='';
  let sport=sp.value,names={Tennis:tennisCategories,Swimming:['Kids','Juniors','Adults'],'Water Polo':['Kids','Teens','Veterans'],Padel:['Kids','Teens','Veterans'],Taekwondo:['Kids','Teens'],Fitness:['Kids','Juniors']}[sport]||[];
- if(cat){cat.style.display=names.length?'block':'none';let editing=st.editRegistration?st.players.flatMap(function(p){return p.registrations||[]}).find(function(r){return r.id===st.editRegistration}):null,selectedCats=editing&&editing.sport===sport?(editing.tennis_categories||[]):[];cat.innerHTML=names.length?'<b>'+sport+' categories</b><div class=registration-sessions>'+names.map(function(x){return '<label class=check><input class=tc type=checkbox value="'+x+'" '+(selectedCats.includes(x)?'checked':'')+'>'+x+'</label>'}).join('')+'</div>':''}
+ if(cat){cat.style.display=names.length?'block':'none';let editing=st.editRegistration?st.players.flatMap(function(p){return p.registrations||[]}).find(function(r){return r.id===st.editRegistration}):null,selectedCats=editing&&editing.sport===sport?(function(v){try{if(typeof v==='string')v=JSON.parse(v)}catch(e){v=[]}return Array.isArray(v)?v.map(function(x){return String(x).trim()}):[]})(editing.tennis_categories):[];cat.innerHTML=names.length?'<b>'+sport+' categories</b><div class=registration-sessions>'+names.map(function(x){return '<label class=check><input class=tc type=checkbox value="'+x+'" '+(selectedCats.includes(x)?'checked':'')+'>'+x+'</label>'}).join('')+'</div>':''}
  if(pkg)pkg.innerHTML='<option value="">Select package...</option>'+st.packages.filter(function(x){return x.sport===sport}).map(function(x){return '<option value="'+x.id+'">'+x.name+' · '+x.sessions_per_week+'x/week · '+x.duration_weeks+' weeks · '+(x.net_price??x.price??0)+' BD</option>'}).join('');
  refreshRegistrationPricing();
 }
