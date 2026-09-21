@@ -263,14 +263,9 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    const r=await fetch('/api/evaluation-report-pdf?id='+encodeURIComponent(id),{credentials:'include',headers:{'Accept':'application/json'}});
-    const data=await r.json();
-    if(!r.ok||!data.pdf)throw new Error(data.error||'PDF generation failed.');
-    const raw=atob(data.pdf),bytes=new Uint8Array(raw.length);
-    for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
-    const url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
-    const a=document.createElement('a');a.href=url;a.download=data.filename||'MSA_Player_Evaluation_Report.pdf';document.body.appendChild(a);a.click();a.remove();
-    setTimeout(function(){URL.revokeObjectURL(url)},1000);
+    // Generate directly in the signed-in browser. This avoids the mobile Chrome PDF
+    // viewer receiving Hatchable's login page when an API download is opened.
+    generateEvaluationPDF(e);
   }catch(err){console.error(err);alert('PDF generation failed: '+(err?.message||err));}
 }
 function generateEvaluationPDF(source){
