@@ -15,11 +15,11 @@ export default async function(req,res){
  if(!exists.rows.length)return res.status(404).json({error:'Evaluation not found.'});
  const token=crypto.randomUUID();
  await db.query("INSERT INTO report_pdf_tokens (token,evaluation_id,expires_at) VALUES ($1,$2,now()+interval '5 minutes')",[token,id]);
- const base='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&render_version=266';
+ const base='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&render_version=268';
  try{
    const bytes=await browser.pdf(base,{width:'200mm',height:'300mm',printBackground:true});
    res.setHeader('content-type','application/pdf');
-   res.setHeader('content-disposition','attachment; filename="MSA_Player_Evaluation_Report_v266.pdf"');
+   res.setHeader('content-disposition','attachment; filename="MSA_Player_Evaluation_Report_v268.pdf"');
    return res.send(bytes);
  }finally{
    await db.query('DELETE FROM report_pdf_tokens WHERE token=$1',[token]);
