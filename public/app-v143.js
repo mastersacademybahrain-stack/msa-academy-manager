@@ -289,7 +289,7 @@ async function generateEvaluationPDFById(id){
     let url=URL.createObjectURL(blob);
     let a=document.createElement('a');
     a.href=url;
-    a.download='MSA_Player_Evaluation_Report.pdf';
+    a.download='MSA_Player_Evaluation_Report_v266.pdf';
     a.rel='noopener';
     a.style.display='none';
     document.body.appendChild(a);

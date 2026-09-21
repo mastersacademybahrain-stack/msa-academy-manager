@@ -283,7 +283,7 @@ async function generateEvaluationPDFById(id){
     let blob=await r.blob();
     if(!blob.size)throw Error('Empty PDF response.');
     let url=URL.createObjectURL(blob);
-    let a=document.createElement('a');a.href=url;a.download='MSA_Player_Evaluation_Report.pdf';a.style.display='none';
+    let a=document.createElement('a');a.href=url;a.download='MSA_Player_Evaluation_Report_v266.pdf';a.style.display='none';
     document.body.appendChild(a);a.click();a.remove();
     setTimeout(function(){URL.revokeObjectURL(url)},15000);
   }catch(err){console.error('MSA PDF download failed',err);alert('PDF generation failed: '+(err?.message||err));}
