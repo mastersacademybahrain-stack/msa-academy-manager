@@ -2,7 +2,7 @@
   "name":"MSA Academy Manager",
   "short_name":"MSA Manager",
   "description":"MSA Academy Manager — Where Champions Are Made",
-  "start_url":"/?v=190",
+  "start_url":"/?v=216",
   "scope":"/",
   "display":"standalone",
   "orientation":"portrait-primary",
