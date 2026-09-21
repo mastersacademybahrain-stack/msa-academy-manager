@@ -14,7 +14,7 @@ export default async function(req,res){
   const active=await db.query("SELECT id FROM player_registrations WHERE player_id=$1 AND COALESCE(sport,'')=$2 AND start_date + (GREATEST(1,number_weeks)*7-1) >= $3 AND ($4::uuid IS NULL OR id<>$4::uuid) LIMIT 1",[player_id,registrationSport,start_date,registration_id||null]);
   if(active.rows.length)return res.status(400).json({error:'This player already has an active registration for '+registrationSport+'. Use Renewal for that sport instead.'});
  }
- const cats=registrationSport==='Tennis'&&Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>['Red','Orange','Green','Yellow','Veteran','Private'].includes(x)))]:[];
+ const categoryMap={Tennis:['Red','Orange','Green','Yellow','Veteran','Private'],Swimming:['Kids','Juniors','Adults','Private'],Padel:['Kids','Teens','Veterans','Private'],'Water Polo':['Kids','Teens','Veterans','Private'],Taekwondo:['Kids','Teens','Private'],Fitness:['Kids','Juniors','Private']};const allowedCategories=categoryMap[registrationSport]||[];const cats=Array.isArray(tennis_categories)?[...new Set(tennis_categories.filter(x=>allowedCategories.includes(x)))]:[];
  const n=+pkg.rows[0].sessions_per_week,packageWeeks=+pkg.rows[0].duration_weeks,type=pkg.rows[0].package_type||'Monthly';
  let w=+(number_weeks??packageWeeks),referencePrice=Number(pkg.rows[0].price||0),netPrice=Number(pkg.rows[0].net_price||0);
  if(type==='Term'){

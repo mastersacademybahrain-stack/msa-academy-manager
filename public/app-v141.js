@@ -258,7 +258,7 @@ function registration(c){
   document.getElementById('ps').value=er.sport||'';
   refreshRegistrationForm();
   document.getElementById('pp').value=er.package_id||'';
-  if(er.sport==='Tennis'){let savedCats=er.tennis_categories;try{if(typeof savedCats==='string')savedCats=JSON.parse(savedCats)}catch(e){savedCats=[]}if(!Array.isArray(savedCats))savedCats=[];savedCats=savedCats.map(function(x){return String(x).trim()});document.querySelectorAll('.tc').forEach(function(x){x.checked=savedCats.includes(x.value)})}
+  let savedCats=er.tennis_categories;try{if(typeof savedCats==='string')savedCats=JSON.parse(savedCats)}catch(e){savedCats=[]}if(!Array.isArray(savedCats))savedCats=[];savedCats=savedCats.map(function(x){return String(x).trim()});document.querySelectorAll('.tc').forEach(function(x){x.checked=savedCats.includes(x.value)});
   refreshRegistrationPricing();
  }
 }
@@ -289,7 +289,7 @@ function refreshRegistrationPricing(){let pkg=document.getElementById('pp'),box=
    let p=st.players.find(function(x){return x.id===playerId}),same=(p?.registrations||[]).some(function(r){return (r.sport||'')===sport});
    if(same)return alert('This player already has a registration for '+sport+'. Use Renewal for that sport instead.');
   }
-  await j('/registration-save',{method:'POST',body:JSON.stringify({player_id:playerId,package_id,start_date:start,registration_date,discount_percentage:discount,paid,registration_type:mode,registration_id:st.editRegistration||null,tennis_categories:sport==='Tennis'?cats:[]})});
+  await j('/registration-save',{method:'POST',body:JSON.stringify({player_id:playerId,package_id,start_date:start,registration_date,discount_percentage:discount,paid,registration_type:mode,registration_id:st.editRegistration||null,tennis_categories:cats})});
   st.selected=null;st.editRegistration=null;await load();
  }catch(e){alert(e.message||'Registration could not be saved.')}
 }
