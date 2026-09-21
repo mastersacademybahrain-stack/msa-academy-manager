@@ -236,8 +236,8 @@ function registration(c){
  let er=st.editRegistration?st.players.flatMap(function(p){return (p.registrations||[]).map(function(r){return {...r,player:p}})}).find(function(x){return x.id===st.editRegistration}):null;
  c.innerHTML=`<div class=pagehead><div><h1>${er?'Edit registration':'Registration'}</h1><div class=small>${er?'Update this registration, payment status, dates or package.':'Register an existing player for a new sport or renew one of the sports already registered.'}</div></div></div>
  <div class=card><div class=grid>
- <label>Registration type<select id=registrationMode ${er?'disabled':''} onchange="refreshRegistrationForm()"><option value="">Select registration type...</option><option value="new_sport">New registration for a new sport</option><option value="renewal">Renewal for existing sport</option></select></label>
- <label>Player<select id=existingPlayer ${er?'disabled':''} onchange="refreshRegistrationForm()"><option value="">Select player...</option>${st.players.map(function(p){return '<option value="'+p.id+'">'+p.name+'</option>'}).join('')}</select></label>
+ <label>Registration type<select id=registrationMode onchange="refreshRegistrationForm()"><option value="">Select registration type...</option><option value="new_sport">New registration for a new sport</option><option value="renewal">Renewal for existing sport</option></select></label>
+ <label>Player<select id=existingPlayer onchange="refreshRegistrationForm()"><option value="">Select player...</option>${st.players.map(function(p){return '<option value="'+p.id+'">'+p.name+'</option>'}).join('')}</select></label>
  <label>Sport<select id=ps onchange="refreshRegistrationForm()"><option value="">Select sport...</option></select></label>
  </div><div id=tennisCats class=card style="display:none"></div>
  <div class=card><b>Registration & Pricing</b><div class=grid>
@@ -273,7 +273,7 @@ function legacyRegistration(c){let e=st.players.find(x=>x.id===st.selected);if(e
  sp.innerHTML='<option value="">Select sport...</option>'+choices.map(function(x){return '<option value="'+x+'">'+x+'</option>'}).join('');
  if(current&&choices.includes(current))sp.value=current;else sp.value='';
  let sport=sp.value,names={Tennis:tennisCategories,Swimming:['Kids','Juniors','Adults'],'Water Polo':['Kids','Teens','Veterans'],Padel:['Kids','Teens','Veterans'],Taekwondo:['Kids','Teens'],Fitness:['Kids','Juniors']}[sport]||[];
- if(cat){cat.style.display=names.length?'block':'none';cat.innerHTML=names.length?'<b>'+sport+' categories</b><div class=registration-sessions>'+names.map(function(x){return '<label class=check><input class=tc type=checkbox value="'+x+'">'+x+'</label>'}).join('')+'</div>':''}
+ if(cat){cat.style.display=names.length?'block':'none';let editing=st.editRegistration?st.players.flatMap(function(p){return p.registrations||[]}).find(function(r){return r.id===st.editRegistration}):null,selectedCats=editing&&editing.sport===sport?(editing.tennis_categories||[]):[];cat.innerHTML=names.length?'<b>'+sport+' categories</b><div class=registration-sessions>'+names.map(function(x){return '<label class=check><input class=tc type=checkbox value="'+x+'" '+(selectedCats.includes(x)?'checked':'')+'>'+x+'</label>'}).join('')+'</div>':''}
  if(pkg)pkg.innerHTML='<option value="">Select package...</option>'+st.packages.filter(function(x){return x.sport===sport}).map(function(x){return '<option value="'+x.id+'">'+x.name+' · '+x.sessions_per_week+'x/week · '+x.duration_weeks+' weeks · '+(x.net_price??x.price??0)+' BD</option>'}).join('');
  refreshRegistrationPricing();
 }

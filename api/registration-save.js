@@ -26,10 +26,10 @@ export default async function(req,res){
  if(!n||!packageWeeks||!w)return res.status(400).json({error:'Package must have sessions per week and duration in weeks, and player number of weeks must be positive'});
  let reg;
  if(registration_id){
-  const ex=await db.query('SELECT id FROM player_registrations WHERE id=$1 AND player_id=$2',[registration_id,player_id]);
+  const ex=await db.query('SELECT id,player_id FROM player_registrations WHERE id=$1',[registration_id]);
   if(!ex.rows.length)return res.status(404).json({error:'Registration not found'});
   reg=registration_id;
-  await db.query('UPDATE player_registrations SET package_id=$1,sport=$2,tennis_categories=$3,sessions_per_week=$4,duration_weeks=$5,start_date=$6,number_weeks=$7,reference_price=$8,net_price=$9,discount_percentage=$10,discounted_price=$11,registration_date=$12,paid=$13 WHERE id=$14',[package_id,registrationSport,cats,n,w,start_date,w,referencePrice,netPrice,Math.max(0,Math.min(100,Number(discount_percentage||0))),netPrice*(1-Math.max(0,Math.min(100,Number(discount_percentage||0)))/100),registration_date||new Date().toISOString().slice(0,10),!!paid,reg]);
+  await db.query('UPDATE player_registrations SET player_id=$1,package_id=$2,sport=$3,tennis_categories=$4,sessions_per_week=$5,duration_weeks=$6,start_date=$7,number_weeks=$8,reference_price=$9,net_price=$10,discount_percentage=$11,discounted_price=$12,registration_date=$13,paid=$14,registration_type=$15 WHERE id=$16',[player_id,package_id,registrationSport,cats,n,w,start_date,w,referencePrice,netPrice,Math.max(0,Math.min(100,Number(discount_percentage||0))),netPrice*(1-Math.max(0,Math.min(100,Number(discount_percentage||0)))/100),registration_date||new Date().toISOString().slice(0,10),!!paid,registration_type,reg]);
  }else{
   const nr=await db.query('SELECT COALESCE(MAX(registration_no),0)+1 AS n FROM player_registrations WHERE player_id=$1',[player_id]);
   const next=+nr.rows[0].n;
@@ -37,6 +37,7 @@ export default async function(req,res){
   reg=ins.rows[0].id;
  }
  await db.query('INSERT INTO player_packages(player_id,package_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[player_id,package_id]);
+  if(registration_id)await db.query('UPDATE player_schedule_occurrences SET player_id=$1 WHERE registration_id=$2',[player_id,reg]);
  const d=await db.query('SELECT id,registration_no,registration_type,registration_date,paid FROM player_registrations WHERE id=$1',[reg]);
  return res.json({ok:true,registration_id:reg,registration_no:d.rows[0].registration_no,registration_type:d.rows[0].registration_type,registration_date:d.rows[0].registration_date,paid:d.rows[0].paid,player_id,package_id,sessions_per_week:n,duration_weeks:w,number_weeks:w,start_date,reference_price:referencePrice,net_price:netPrice,discount_percentage:Number(discount_percentage||0),discounted_price:netPrice*(1-Number(discount_percentage||0)/100),slots_assigned:false});
 }
