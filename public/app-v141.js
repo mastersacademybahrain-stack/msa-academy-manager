@@ -258,10 +258,20 @@ function setEvaluationRating(btn){
   box.querySelectorAll('.eval-star').forEach(function(x){x.classList.toggle('selected',Number(x.dataset.value)<=v);});
   box.dataset.value=String(v);
 }
-function generateEvaluationPDFById(id){
+async function generateEvaluationPDFById(id){
+  if(!isManager())return alert('Only Owner and Manager can generate PDF reports.');
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
-  generateEvaluationPDF(e);
+  try{
+    let r=await fetch(API+'/evaluation-report-pdf?id='+encodeURIComponent(id)+'&v=242');
+    let x=await r.json();
+    if(!r.ok)throw Error(x.error||'PDF generation failed.');
+    let raw=atob(x.pdf),bytes=new Uint8Array(raw.length);
+    for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+    let blob=new Blob([bytes],{type:'application/pdf'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=x.filename||'MSA_Player_Evaluation_Report.pdf';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url)},1500);
+  }catch(err){console.error(err);alert('PDF generation failed: '+(err?.message||err));}
 }
 function generateEvaluationPDF(source){
   let pid=source?.player_id||st.evaluationPlayerId||'',sport=source?.sport||st.evaluationSport||'',level=source?.level||st.evaluationLevel||'';
