@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+<defs><path id="top" d="M 82,250 A 168,168 0 0,1 418,250"/><path id="bot" d="M 418,250 A 168,168 0 0,1 82,250"/></defs>
+<circle cx="250" cy="250" r="224" fill="#fff" stroke="#f2b849" stroke-width="12"/><circle cx="250" cy="250" r="210" fill="#fff" stroke="#43247d" stroke-width="10"/><circle cx="250" cy="250" r="153" fill="#fff" stroke="#f2b849" stroke-width="6"/><circle cx="250" cy="250" r="145" fill="#fff" stroke="#43247d" stroke-width="7"/>
+<text fill="#43247d" font-family="Arial,sans-serif" font-size="39" font-weight="900" letter-spacing="1"><textPath href="#top" startOffset="50%" text-anchor="middle">MASTERS SPORT</textPath></text>
+<text fill="#43247d" font-family="Arial,sans-serif" font-size="39" font-weight="900" letter-spacing="1"><textPath href="#bot" startOffset="50%" text-anchor="middle">ACADEMY</textPath></text>
+<text x="250" y="282" text-anchor="middle" font-family="Arial,sans-serif" font-size="82" font-weight="900"><tspan fill="#43247d">M</tspan><tspan fill="#f2b849">S</tspan><tspan fill="#43247d">A</tspan></text>
+<circle cx="96" cy="250" r="13" fill="#f2b849"/><circle cx="404" cy="250" r="13" fill="#f2b849"/>
+</svg>
