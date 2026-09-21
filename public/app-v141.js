@@ -263,7 +263,7 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    const r=await fetch('/api/evaluation-report-pdf?id='+encodeURIComponent(id));
+    const r=await fetch('/api/evaluation-report-pdf?id='+encodeURIComponent(id),{credentials:'include',headers:{'Accept':'application/json'}});
     const data=await r.json();
     if(!r.ok||!data.pdf)throw new Error(data.error||'PDF generation failed.');
     const raw=atob(data.pdf),bytes=new Uint8Array(raw.length);
