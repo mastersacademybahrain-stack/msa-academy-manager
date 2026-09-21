@@ -30,6 +30,7 @@ export default async function(req,res){
  const feedback=e.comments||'';
  const strengths=e.strengths||'';
  const focus=e.focus_areas||'';
+ const extraBoxes=(strengths||focus)?'<div class="twobox">'+(strengths?'<div class="mini"><h4>STRENGTHS</h4><p>'+esc(strengths)+'</p></div>':'')+(focus?'<div class="mini gold"><h4>FOCUS AREAS</h4><p>'+esc(focus)+'</p></div>':'')+'</div>':'';
  const levelMap={Red:{color:'#d71920',soft:'#fff0f0',tag:'FOUNDATIONS',desc:'LEARN THE BASICS',ball:'#d71920'},Orange:{color:'#f26b16',soft:'#fff3ea',tag:'BUILDING SKILLS',desc:'DEVELOP YOUR GAME',ball:'#f26b16'},Green:{color:'#169c3a',soft:'#effaf0',tag:'ADVANCING',desc:'PLAY WITH CONFIDENCE',ball:'#72c91f'},Yellow:{color:'#f4c400',soft:'#fffbe8',tag:'PERFORMANCE',desc:'TAKE YOUR GAME FURTHER',ball:'#ffd21a'}};
  const lv=levelMap[level]||{color:'#123d72',soft:'#f2f6fb',tag:'PLAYER LEVEL',desc:'PLAY LEARN GROW',ball:'#ffd21a'};
  const photo=sport==='Tennis'?'/report-tennis-photo.jpg':'/report-tennis-photo.jpg';
