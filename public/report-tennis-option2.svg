@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1600 840">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4b9b63"/><stop offset=".48" stop-color="#2d86a8"/><stop offset="1" stop-color="#0b3e78"/></linearGradient>
+ <linearGradient id="court" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2f8bb0"/><stop offset="1" stop-color="#0b4b82"/></linearGradient>
+ <filter id="shadow"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<rect width="1600" height="840" fill="url(#sky)"/>
+<path d="M0 0H1600V840H0Z" fill="#0b376a" opacity=".12"/>
+<!-- aerial tennis court -->
+<path d="M180 0L1420 0L1600 840L0 840Z" fill="url(#court)"/>
+<path d="M180 0L1420 0L1600 840L0 840Z" fill="none" stroke="#fff" stroke-width="12"/>
+<path d="M800 0V840M90 420H1510" stroke="#fff" stroke-width="9"/>
+<path d="M410 0L550 840M1190 0L1050 840" stroke="#fff" stroke-width="8"/>
+<path d="M800 0L800 840" stroke="#fff" stroke-width="7" opacity=".8"/>
+<!-- net -->
+<path d="M600 405H1000" stroke="#fff" stroke-width="13"/>
+<path d="M600 405V560M1000 405V560" stroke="#fff" stroke-width="8"/>
+<path d="M600 405H1000" stroke="#dcecff" stroke-width="3" stroke-dasharray="8 8"/>
+<!-- professional illustrated player -->
+<ellipse cx="840" cy="705" rx="180" ry="25" fill="#051e42" opacity=".32" filter="url(#shadow)"/>
+<circle cx="840" cy="300" r="55" fill="#b8754f"/>
+<path d="M788 300Q800 232 850 238Q900 244 910 302Q875 275 840 280Q810 280 788 300Z" fill="#152238"/>
+<path d="M805 360Q840 380 875 360L900 545L840 575L780 545Z" fill="#fff"/>
+<path d="M805 390L710 500M875 390L970 305" stroke="#fff" stroke-width="28" stroke-linecap="round"/>
+<path d="M790 540L825 700M890 540L850 700" stroke="#123f83" stroke-width="42" stroke-linecap="round"/>
+<path d="M825 700L775 805M850 700L930 805" stroke="#173d73" stroke-width="38" stroke-linecap="round"/>
+<path d="M770 805H835M930 805H865" stroke="#071d3e" stroke-width="25" stroke-linecap="round"/>
+<image xlink:href="/msa-logo-exact.svg" x="815" y="378" width="50" height="50"/>
+<!-- racket -->
+<g transform="translate(965 245) rotate(25)"><ellipse cx="0" cy="0" rx="48" ry="68" fill="none" stroke="#151e2c" stroke-width="12"/><ellipse cx="0" cy="0" rx="34" ry="52" fill="none" stroke="#d7e6f3" stroke-width="3"/><rect x="-6" y="62" width="12" height="100" rx="6" fill="#151e2c"/></g>
+<circle cx="1090" cy="170" r="18" fill="#d8ff3d"/>
+<!-- exact MSA logo and top-right learning message -->
+<image xlink:href="/msa-logo-exact.svg" x="55" y="50" width="150" height="150"/>
+<text x="1390" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="900" fill="#fff">LEARN</text>
+<text x="1390" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="900" fill="#fff">PLAY</text>
+<text x="1390" y="168" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="900" fill="#fff">DEVELOP</text>
+<path d="M1315 190Q1390 205 1465 190" stroke="#ffd21a" stroke-width="9" fill="none" stroke-linecap="round"/>
+</svg>
