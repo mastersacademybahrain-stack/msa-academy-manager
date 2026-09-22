@@ -72,12 +72,13 @@ const selectedHeroKeys={
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key=s=>String(s??'').replace(/[^a-z0-9]+/gi,'_').toLowerCase();
 
-function toDataUri(item){
+function toDataUri(item,mime){
   if(!item?.buffer)throw new Error('Selected report image is missing.');
   const bytes=new Uint8Array(item.buffer);
   let binary='';
   for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
-  return 'data:'+(item.contentType||'image/webp')+';base64,'+btoa(binary);
+  // Explicit MIME type: do not depend on storage metadata when generating PDF data URIs.
+  return 'data:'+(mime||'image/jpeg')+';base64,'+btoa(binary);
 }
 
 export default async function(req,res){
@@ -105,7 +106,7 @@ export default async function(req,res){
   if(heroKey){
     const image=await storage.get(heroKey);
     if(!image?.buffer)return res.status(500).send('Selected '+sport+' Option 2 report image is missing.');
-    hero=toDataUri(image);
+    hero=toDataUri(image,sport==='Swimming'?'image/jpeg':'image/webp');
   }
 
   const skills=(skillsBySport[sport]?.[level]||[]).slice(0,5);
