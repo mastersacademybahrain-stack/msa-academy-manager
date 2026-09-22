@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masters Sport Academy - Premier Tennis Coaching in Bahrain</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Transform your tennis game with Masters Sport Academy in Bahrain. Expert coaching for all ages and skill levels. Join our professional tennis training programs today." />
+  <meta name="keywords"
+    content="tennis academy bahrain, tennis coaching, tennis lessons, tennis training, tennis programs, kids tennis, adult tennis, reef island tennis" />
+  <meta name="author" content="Masters Sport Academy" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Masters Sport Academy - Tennis Coaching in Bahrain" />
+  <meta property="og:description"
+    content="Expert tennis coaching programs for all ages and skill levels in Bahrain. Transform your game with professional training." />
+  <meta property="og:image" content="./assets/tennis_player.png" />
+  <meta property="og:url" content="https://msabahrain.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Masters Sport Academy - Tennis Coaching in Bahrain" />
+  <meta name="twitter:description"
+    content="Expert tennis coaching programs for all ages and skill levels in Bahrain. Transform your game with professional training." />
+  <meta name="twitter:image" content="./assets/tennis_player.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://msabahrain.com" />
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#4b2e83", secondary: "#f7b733" },
+          borderRadius: {
+            none: "0px",
+            sm: "4px",
+            DEFAULT: "8px",
+            md: "12px",
+            lg: "16px",
+            xl: "20px",
+            "2xl": "24px",
+            "3xl": "32px",
+            full: "9999px",
+            button: "8px",
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    :where([class^="ri-"])::before {
+      content: "\f3c2";
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .program-card {
+      transition: all 0.3s ease;
+      background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      /* background: linear-gradient(to bottom right, #ffffff, #f0f9ff); */
+    }
+
+    .red-accent {
+      background: linear-gradient(45deg,
+          rgba(239, 68, 68, 0.1),
+          rgba(239, 68, 68, 0.05));
+      border-left: 4px solid #ef4444;
+    }
+
+    .orange-accent {
+      background: linear-gradient(45deg,
+          rgba(249, 115, 22, 0.1),
+          rgba(249, 115, 22, 0.05));
+      border-left: 4px solid #f97316;
+    }
+
+    .green-accent {
+      background: linear-gradient(45deg,
+          rgba(34, 197, 94, 0.1),
+          rgba(34, 197, 94, 0.05));
+      border-left: 4px solid #22c55e;
+    }
+
+    .yellow-accent {
+      background: linear-gradient(45deg,
+          rgba(234, 179, 8, 0.1),
+          rgba(234, 179, 8, 0.05));
+      border-left: 4px solid #eab308;
+    }
+
+    .blue-accent {
+      background: linear-gradient(45deg,
+          rgba(37, 99, 235, 0.1),
+          rgba(37, 99, 235, 0.05));
+      border-left: 4px solid #2563eb;
+    }
+
+    .gray-accent {
+      background: linear-gradient(45deg,
+          rgba(71, 85, 105, 0.1),
+          rgba(71, 85, 105, 0.05));
+      border-left: 4px solid #475569;
+    }
+
+    /* Swiper Customizations */
+    .swiper-pagination-bullet {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+      opacity: 1 !important;
+      transition: all 0.3s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: #f7b733 !important;
+      /* Secondary color */
+      box-shadow: 0 0 10px rgba(247, 183, 51, 0.5);
+      width: 32px !important;
+      border-radius: 4px !important;
+    }
+
+    /* Slide Animations */
+    .slide-content>* {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .slide-bg-image,
+    .slide-bg-video {
+      transform: scale(1.05);
+      transition: transform 6s ease;
+    }
+
+    .swiper-slide-active .slide-content>span {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    .swiper-slide-active .slide-content>h1 {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.4s;
+    }
+
+    .swiper-slide-active .slide-content>p {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .swiper-slide-active .slide-content>div {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.8s;
+    }
+
+    .swiper-slide-active .slide-bg-image,
+    .swiper-slide-active .slide-bg-video {
+      transform: scale(1);
+    }
+
+    .testimonial-card {
+      transition: all 0.3s ease;
+      background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 767px) {
+      .swiper-button-prev {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+</head>
+
+<body class="bg-gray-50" itemscope itemtype="http://schema.org/SportsClub">
+  <!-- Header -->
+  <header class="bg-white/80 backdrop-blur-md fixed w-full top-0 z-50 border-b border-gray-100">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+          <span class="text-primary text-xl font-bold"><img src="./assets/logo.png" alt="logo" /></span>
+        </div>
+        <span class="ml-3 text-primary font-semibold">Masters Sport Academy</span>
+      </div>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#home" class="text-gray-800 hover:text-primary font-medium">Home</a>
+        <a href="#programs" class="text-gray-800 hover:text-primary font-medium">Programs</a>
+        <a href="#gallery" class="text-gray-800 hover:text-primary font-medium">Gallery</a>
+        <a href="#about-us" class="text-gray-800 hover:text-primary font-medium">About Us</a>
+        <a href="#contact" class="text-gray-800 hover:text-primary font-medium">Contact</a>
+      </nav>
+      <!-- Mobile Navigation Toggle -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+          <div class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-menu-line ri-lg"></i>
+          </div>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white">
+      <div class="container mx-auto px-4 py-3 space-y-3">
+        <a href="#home" class="block text-gray-800 hover:text-primary font-medium py-2">Home</a>
+        <a href="#programs" class="block text-gray-800 hover:text-primary font-medium py-2">Programs</a>
+        <a href="#gallery" class="block text-gray-800 hover:text-primary font-medium py-2">Gallery</a>
+        <a href="#about-us" class="block text-gray-800 hover:text-primary font-medium py-2">About Us</a>
+        <a href="#contact" class="block text-gray-800 hover:text-primary font-medium py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+  <!-- Hero Section -->
+  <section id="home" class="relative h-screen min-h-[600px] w-full overflow-hidden bg-white">
+    <!-- Swiper -->
+    <div class="swiper hero-swiper h-full w-full">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1: Tennis -->
+        <div class="swiper-slide relative overflow-hidden" data-swiper-autoplay="28000">
+          <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline
+              class="w-full h-full object-cover object-[center_20%] slide-bg-video opacity-90">
+              <source src="./assets/hero-tennis.webm" type="video/webm" />
+              <source src="./assets/hero-tennis.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent"></div>
+          </div>
+          <div class="container mx-auto px-6 h-full flex items-center relative z-10 pt-20">
+            <div class="md:w-2/3 max-w-3xl slide-content">
+              <span
+                class="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary border border-primary/20 backdrop-blur-md text-sm font-semibold tracking-wider mb-4 uppercase">MSA
+                Academy</span>
+              <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-sm">
+                Master the Court with <span class="text-secondary">Tennis</span>
+              </h1>
+              <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed max-w-2xl font-medium">
+                Professional coaching from top-tier experts. Elevate your technique, strategy, and mental game.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#programs"
+                  class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-button font-medium text-lg inline-block transition-transform duration-300 whitespace-nowrap text-center shadow-lg hover:-translate-y-1">Explore
+                  Tennis</a>
+                <a href="#contact"
+                  class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 shadow-sm px-8 py-4 rounded-button font-medium text-lg inline-block transition-transform duration-300 whitespace-nowrap text-center hover:-translate-y-1">Contact
+                  Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Swimming -->
+        <div class="swiper-slide relative overflow-hidden">
+          <div class="absolute inset-0 z-0">
+            <img src="./assets/hero-swimming.png" alt="Swimming at MSA"
+              class="w-full h-full object-cover object-[center_30%] slide-bg-image opacity-90" />
+            <div class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent"></div>
+          </div>
+          <div class="container mx-auto px-6 h-full flex items-center relative z-10 pt-20">
+            <div class="md:w-2/3 max-w-3xl slide-content">
+              <span
+                class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 border border-blue-200 backdrop-blur-md text-sm font-semibold tracking-wider mb-4 uppercase">MSA
+                Academy</span>
+              <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-sm">
+                Dive into <span class="text-blue-600">Excellence</span>
+              </h1>
+              <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed max-w-2xl font-medium">
+                Olympic-standard swimming programs for all ages. Build endurance, perfect your stroke, and conquer the
+                water.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#programs"
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-button font-medium text-lg inline-block transition-transform duration-300 whitespace-nowrap text-center shadow-lg hover:-translate-y-1">View
+                  Programs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Fitness -->
+        <div class="swiper-slide relative overflow-hidden">
+          <div class="absolute inset-0 z-0">
+            <img src="./assets/hero-fitness.png" alt="Fitness at MSA"
+              class="w-full h-full object-cover object-[center_30%] slide-bg-image opacity-90" />
+            <div class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent"></div>
+          </div>
+          <div class="container mx-auto px-6 h-full flex items-center relative z-10 pt-20">
+            <div class="md:w-2/3 max-w-3xl slide-content">
+              <span
+                class="inline-block py-1 px-3 rounded-full bg-green-50 text-green-600 border border-green-200 backdrop-blur-md text-sm font-semibold tracking-wider mb-4 uppercase">MSA
+                Academy</span>
+              <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-sm">
+                Transform Your <span class="text-green-600">Fitness</span>
+              </h1>
+              <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed max-w-2xl font-medium">
+                State-of-the-art facilities and personalized training plans to help you achieve your ultimate physical
+                potential.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#programs"
+                  class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-button font-medium text-lg inline-block transition-transform duration-300 whitespace-nowrap text-center shadow-lg hover:-translate-y-1">Start
+                  Training</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Pagination & Navigation -->
+      <div class="swiper-pagination mb-4"></div>
+      <div class="swiper-button-prev !text-gray-500 hover:!text-primary transition-colors duration-300 ml-2 md:ml-4">
+      </div>
+      <div class="swiper-button-next !text-gray-500 hover:!text-primary transition-colors duration-300 mr-2 md:mr-4">
+      </div>
+    </div>
+
+    <!-- Stats Overlay (Bottom) -->
+    <div
+      class="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-white via-white/90 to-transparent pt-12 pb-6 md:pb-10 pointer-events-none">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl border-t border-gray-200 pt-6">
+          <div>
+            <h3 class="text-2xl md:text-4xl font-bold text-gray-900">15+</h3>
+            <p class="text-gray-600 text-xs md:text-base font-semibold mt-1 uppercase tracking-wider">Expert Coaches</p>
+          </div>
+          <div>
+            <h3 class="text-2xl md:text-4xl font-bold text-gray-900">200+</h3>
+            <p class="text-gray-600 text-xs md:text-base font-semibold mt-1 uppercase tracking-wider">Students Trained
+            </p>
+          </div>
+          <div>
+            <h3 class="text-2xl md:text-4xl font-bold text-gray-900">20+</h3>
+            <p class="text-gray-600 text-xs md:text-base font-semibold mt-1 uppercase tracking-wider">Years Exp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Programs Section -->
+  <section id="programs" class="py-12 md:py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+          Our Training Programs
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Personalized programs focused on skill development, confidence building, and fostering a passion for fitness
+          and active lifestyles.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Red Group -->
+        <div class="program-card red-accent bg-white rounded-lg shadow-md fade-up overflow-hidden" id="red-group">
+          <div class="p-6">
+            <span class="bg-red-500 text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Red Group</h3>
+              <span class="bg-red-500 text-white text-sm px-3 py-1 rounded-full">Ages 4-6</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Fundamentals & Fun
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-red-500"></i>
+                  </div>
+                  Proper grip techniques
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-red-500"></i>
+                  </div>
+                  Basic strokes introduction
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-red-500"></i>
+                  </div>
+                  Fundamental footwork
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Learning Through:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-red-500"></i>
+                  </div>
+                  Mini tennis activities
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-red-500"></i>
+                  </div>
+                  Interactive games
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Physical & Mental Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-heart-pulse-line text-red-500"></i>
+                  </div>
+                  Basic fitness & coordination
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-red-500"></i>
+                  </div>
+                  Focus & concentration skills
+                </li>
+              </ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-red-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-red-500"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-red-500"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-red-500"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-red-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 50</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 90</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 95</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 170</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap"
+                target="_blank"
+                href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Red%20Group%20program.">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <!-- Orange Group -->
+        <div id="orange-group" class="program-card orange-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-orange-500 text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Orange Group</h3>
+              <span class="bg-orange-500 text-white text-sm px-3 py-1 rounded-full">Ages 7-8</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Advanced Skills Development
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-orange-500"></i>
+                  </div>
+                  Volley techniques
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-orange-500"></i>
+                  </div>
+                  Introduction to spin
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-orange-500"></i>
+                  </div>
+                  Basic strategy concepts
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Learning Through:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-orange-500"></i>
+                  </div>
+                  Structured drills
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-orange-500"></i>
+                  </div>
+                  Competitive activities
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Physical & Mental Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-heart-pulse-line text-orange-500"></i>
+                  </div>
+                  Enhanced coordination
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-orange-500"></i>
+                  </div>
+                  Problem-solving skills
+                </li>
+              </ul>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-orange-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-orange-500"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-orange-500"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-orange-500"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-orange-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 55</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 100</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 105</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 190</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Orange%20Group%20program."
+                target="_blank"
+                class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <!-- Green Group -->
+        <div id="green-group" class="program-card green-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-green-500 text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Green Group</h3>
+              <span class="bg-green-500 text-white text-sm px-3 py-1 rounded-full">Ages 9-10</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Tactics & Competition
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-green-500"></i>
+                  </div>
+                  Serve mastery techniques
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-green-500"></i>
+                  </div>
+                  Advanced net play
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-green-500"></i>
+                  </div>
+                  Match tactics
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Learning Through:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-green-500"></i>
+                  </div>
+                  Situational training
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-green-500"></i>
+                  </div>
+                  Practice matches
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Physical Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-heart-pulse-line text-green-500"></i>
+                  </div>
+                  Sport-specific conditioning
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-green-500"></i>
+                  </div>
+                  Injury prevention techniques
+                </li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-green-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-green-500"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-green-500"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-green-500"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-green-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 55</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 100</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 105</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 190</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Green%20Group%20program."
+                target="_blank"
+                class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <!-- Yellow Group -->
+        <div id="yellow-group" class="program-card yellow-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-yellow-500 text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Yellow Group</h3>
+              <span class="bg-yellow-500 text-white text-sm px-3 py-1 rounded-full">Ages 11+</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Match Play & Competition
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-yellow-500"></i>
+                  </div>
+                  Advanced groundstrokes
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-yellow-500"></i>
+                  </div>
+                  Power & precision serves
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-yellow-500"></i>
+                  </div>
+                  Match strategy
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Tactical Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-yellow-500"></i>
+                  </div>
+                  Opponent analysis
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-yellow-500"></i>
+                  </div>
+                  Tournament preparation
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Physical & Mental Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-heart-pulse-line text-yellow-500"></i>
+                  </div>
+                  Advanced conditioning
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-yellow-500"></i>
+                  </div>
+                  Competitive mindset training
+                </li>
+              </ul>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-yellow-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-yellow-500"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-yellow-500"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-yellow-500"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 60</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 110</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 115</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 205</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Yellow%20Group%20program."
+                target="_blank"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <!-- Veteran Group -->
+        <div id="veteran-group"
+          class="program-card purple-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Veteran Group</h3>
+              <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Adult Players</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Fundamentals & Enjoyment
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-primary"></i>
+                  </div>
+                  Proper groundstroke technique
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-primary"></i>
+                  </div>
+                  Court positioning
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-primary"></i>
+                  </div>
+                  Doubles strategy
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Learning Through:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-primary"></i>
+                  </div>
+                  Cooperative rallies
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-primary"></i>
+                  </div>
+                  Social play opportunities
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Physical Development:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-heart-pulse-line text-primary"></i>
+                  </div>
+                  Age-appropriate fitness
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-primary"></i>
+                  </div>
+                  Injury prevention focus
+                </li>
+              </ul>
+            </div>
+            <div class="bg-primary/5 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-primary"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-primary/5 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 60</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 110</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 115</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 205</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Veteran%20Group%20program."
+                target="_blank"
+                class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <!-- Private Programs -->
+        <div id="private-programs"
+          class="program-card gray-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-gray-600 text-white text-sm px-3 py-1 rounded-full">Tennis</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">
+                Private Programs
+              </h3>
+              <span class="bg-gray-600 text-white text-sm px-3 py-1 rounded-full">All Ages</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Personalized Training
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Benefits:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-gray-600"></i>
+                  </div>
+                  One-on-one attention
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-gray-600"></i>
+                  </div>
+                  Customized skill development
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-gray-600"></i>
+                  </div>
+                  Accelerated improvement
+                </li>
+              </ul>
+            </div>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Options Available:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-tennis-ball-line text-gray-600"></i>
+                  </div>
+                  Single sessions
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-gamepad-line text-gray-600"></i>
+                  </div>
+                  Package options
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-team-line text-gray-600"></i>
+                  </div>
+                  Semi-private (2-3 players)
+                </li>
+              </ul>
+            </div>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Specialized Focus Areas:
+              </h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-focus-3-line text-gray-600"></i>
+                  </div>
+                  Technical refinement
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-mental-health-line text-gray-600"></i>
+                  </div>
+                  Mental game coaching
+                </li>
+              </ul>
+            </div>
+            <div class="bg-grey-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-gray-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-gray-500"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-gray-500"></i>"
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-gray-500"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-grey-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="flex justify-between item-center">
+                  <span class="text-gray-600">4 Sessions (PR-Master-I)</span>
+                  <span class="font-semibold text-gray-800">BD 130</span>
+                </div>
+                <div class="flex justify-between item-center">
+                  <span class="text-gray-600">8 Sessions (PR-Master-II)</span>
+                  <span class="font-semibold text-gray-800">BD 245</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600"
+                      >4 Sessions (SEMI-PR-Master-I)</span
+                    >
+                    <span class="font-semibold text-gray-800"
+                      >BD 90/player</span
+                    >
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600"
+                      >8 Sessions (SEMI-PR-Master-II)</span
+                    >
+                    <span class="font-semibold text-gray-800"
+                      >BD 170/player</span
+                    >
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20Private%20programs."
+                target="_blank"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">
+                Inquire Now
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="premaster-fitness-group"
+          class="program-card purple-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Fitness</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Pre-Master Group</h3>
+              <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Age 5-9</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> FunFit Bootcamp Fitness
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-primary"></i>
+                  </div>
+                  Strength and Conditioning
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-primary"></i>
+                  </div>
+                  High-Intensity Workouts
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="mb-4">
+                <h4 class="font-semibold text-gray-700 mb-2">
+                  Learning Through:
+                </h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-tennis-ball-line text-primary"></i>
+                    </div>
+                    Cooperative rallies
+                  </li>
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-gamepad-line text-primary"></i>
+                    </div>
+                    Social play opportunities
+                  </li>
+                </ul>
+              </div>
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">
+                  Physical Development:
+                </h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-heart-pulse-line text-primary"></i>
+                    </div>
+                    Age-appropriate fitness
+                  </li>
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-mental-health-line text-primary"></i>
+                    </div>
+                    Injury prevention focus
+                  </li>
+                </ul>
+              </div> -->
+            <div class="bg-primary/5 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-primary"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-primary/5 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 60</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 110</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 115</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 205</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20fitness%20Pre-Master%20Group%20program."
+                target="_blank"
+                class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+        <div id="promaster-fitness-group"
+          class="program-card green-accent bg-white rounded-lg shadow-md fade-up overflow-hidden">
+          <div class="p-6">
+            <span class="bg-green-500 text-white text-sm px-3 py-1 rounded-full">Fitness</span>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-800">Pro-Master Group</h3>
+              <span class="bg-green-500 text-white text-sm px-3 py-1 rounded-full">Age 10-16</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              <strong>Focus:</strong> Youth Athlete Training
+            </p>
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Key Skills:</h4>
+              <ul class="text-gray-600 space-y-1">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-green-500"></i>
+                  </div>
+                  Functional Training
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                    <i class="ri-check-line text-green-500"></i>
+                  </div>
+                  Athlete Performance
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="mb-4">
+                <h4 class="font-semibold text-gray-700 mb-2">
+                  Learning Through:
+                </h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-tennis-ball-line text-primary"></i>
+                    </div>
+                    Cooperative rallies
+                  </li>
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-gamepad-line text-primary"></i>
+                    </div>
+                    Social play opportunities
+                  </li>
+                </ul>
+              </div>
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">
+                  Physical Development:
+                </h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-heart-pulse-line text-primary"></i>
+                    </div>
+                    Age-appropriate fitness
+                  </li>
+                  <li class="flex items-start">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5"
+                    >
+                      <i class="ri-mental-health-line text-primary"></i>
+                    </div>
+                    Injury prevention focus
+                  </li>
+                </ul>
+              </div> -->
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Available Locations
+              </h4>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center space-x-2">
+                  <i class="ri-map-pin-line text-green-500"></i>
+                  <span class="text-gray-600"><a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                      Island</a></span>
+                </div>
+                <!-- <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">British Club</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">BTF</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <i class="ri-map-pin-line text-primary"></i>
+                    <span class="text-gray-600">Own Court</span>
+                  </div> -->
+              </div>
+            </div>
+            <!--<div class="bg-primary/5 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-gray-700 mb-2">Program Fees</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">1 Month (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 60</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (1x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 110</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">1 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 115</span>
+                  </div>
+                  <div class="flex justify-between item-center">
+                    <span class="text-gray-600">2 Months (2x/week)</span>
+                    <span class="font-semibold text-gray-800">BD 205</span>
+                  </div>
+                </div>
+              </div>-->
+            <div class="text-center">
+              <a href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20fitness%20Pro-Master%20Group%20program."
+                target="_blank"
+                class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-button font-medium transition-all whitespace-nowrap">Contact
+                for Enrollment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-12 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+          Gallery
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Capturing moments of growth, achievement, and joy on the tennis
+          court.
+        </p>
+      </div>
+      <div id="gallery-grid" class="grid grid-cols-3 gap-6"></div>
+      <div class="text-center mt-8">
+        <button id="view-more-btn"
+          class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-button font-medium transition-all">
+          View More
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about-us" class="py-12 md:py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">About Masters Sport Academy</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Dedicated to excellence in tennis coaching since 2005, we've been
+          shaping champions and fostering a love for the sport in Bahrain.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6 fade-up">
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Our Mission</h3>
+            <p class="text-gray-600">To deliver world-class sports training that develops skilled athletes and confident
+              individuals through tennis, swimming, fitness and a variety of athletic programs.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Our Vision</h3>
+            <p class="text-gray-600">To become Bahrain's leading multi-sport academy, recognized for excellence in
+              coaching, athlete development, and building a strong, active community.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Our Values</h3>
+            <ul class="text-gray-600 space-y-2">
+              <li class="flex items-center">
+                <i class="ri-check-line text-primary mr-2"></i>
+                Excellence across all sports and training programs
+              </li>
+              <li class="flex items-center">
+                <i class="ri-check-line text-primary mr-2"></i>
+                Personalized development for every athlete
+              </li>
+              <li class="flex items-center">
+                <i class="ri-check-line text-primary mr-2"></i>
+                Innovation in coaching and performance methods
+              </li>
+              <li class="flex items-center">
+                <i class="ri-check-line text-primary mr-2"></i>
+                Prompting a healthy, active lifestyle
+              </li>
+              <li class="flex items-center">
+                <i class="ri-check-line text-primary mr-2"></i>
+                Building a supportive and inspiring community
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="space-y-6 fade-up">
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Our Expertise</h3>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700">Professional Coaching</span>
+                  <span class="text-primary">100%</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div class="h-2 bg-primary rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700">Player Development</span>
+                  <span class="text-primary">95%</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div class="h-2 bg-primary rounded-full" style="width: 95%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700">Tournament Success</span>
+                  <span class="text-primary">90%</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div class="h-2 bg-primary rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Why Choose Us?</h3>
+            <ul class="text-gray-600 space-y-3">
+              <li class="flex items-start">
+                <i class="ri-trophy-line text-primary mr-2 mt-1"></i>
+                <span>Experienced coaches with proven track records</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-group-line text-primary mr-2 mt-1"></i>
+                <span>Small group sizes for personalized attention</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-map-pin-line text-primary mr-2 mt-1"></i>
+                <span>Prime location with excellent facilities</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-calendar-line text-primary mr-2 mt-1"></i>
+                <span>Flexible scheduling options</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50">
+    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">
+      &times;
+    </button>
+    <button onclick="prevImage()"
+      class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300">
+      &lt;
+    </button>
+    <button onclick="nextImage()"
+      class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300">
+      &gt;
+    </button>
+    <div class="flex items-center justify-center h-full">
+      <div class="max-w-4xl mx-auto px-4">
+        <img id="lightbox-img" class="max-h-[80vh] w-auto mx-auto" src="" alt="Gallery image" />
+        <p id="lightbox-caption" class="text-white text-center mt-4 text-lg"></p>
+      </div>
+    </div>
+  </div>
+  <!-- Testimonials Section -->
+  <!--<section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            What Our Students Say
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Hear from our students and parents about their experiences at
+            Masters Sport Academy.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md fade-up">
+            <div class="flex justify-center mb-4">
+              <div class="text-yellow-400 flex">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">
+              "My son has been in the Red Group for 6 months and the improvement
+              in his coordination and confidence is remarkable. The coaches make
+              learning fun while developing essential skills."
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold"
+              >
+                JD
+              </div>
+              <div class="ml-3">
+                <h4 class="font-semibold">James Davidson</h4>
+                <p class="text-sm text-gray-500">Parent of Red Group Student</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md fade-up">
+            <div class="flex justify-center mb-4">
+              <div class="text-yellow-400 flex">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">
+              "The Green Group program has transformed my daughter's game. The
+              coaches focus on technique while making sure the kids enjoy the
+              process. She's now competing in local tournaments with
+              confidence."
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold"
+              >
+                EM
+              </div>
+              <div class="ml-3">
+                <h4 class="font-semibold">Emily Mitchell</h4>
+                <p class="text-sm text-gray-500">
+                  Parent of Green Group Student
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md fade-up">
+            <div class="flex justify-center mb-4">
+              <div class="text-yellow-400 flex">
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+                <i class="ri-star-fill"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">
+              "As an adult beginner, I was nervous about starting tennis. The
+              Veteran Group has been perfect - supportive coaches, friendly
+              players, and I've improved more than I thought possible. Highly
+              recommend!"
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold"
+              >
+                RJ
+              </div>
+              <div class="ml-3">
+                <h4 class="font-semibold">Robert Johnson</h4>
+                <p class="text-sm text-gray-500">Veteran Group Member</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>-->
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+          Get in Touch
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Have questions about our programs? Contact us today to learn more or
+          schedule a free assessment.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-1 gap-12">
+        <!-- <div>
+            <form class="space-y-6">
+              <div>
+                <label for="name" class="block text-gray-700 font-medium mb-2"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-gray-700 font-medium mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  placeholder="Your email"
+                />
+              </div>
+              <div>
+                <label for="phone" class="block text-gray-700 font-medium mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="tel"
+                  id="phone"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  placeholder="Your phone number"
+                />
+              </div>
+              <div>
+                <label
+                  for="program"
+                  class="block text-gray-700 font-medium mb-2"
+                  >Program of Interest</label
+                >
+                <div class="relative">
+                  <select
+                    id="program"
+                    class="w-full px-4 py-2 border border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary pr-8"
+                  >
+                    <option value="" selected disabled>Select a program</option>
+                    <option value="red">Red Group (Ages 4-6)</option>
+                    <option value="orange">Orange Group (Ages 7-8)</option>
+                    <option value="green">Green Group (Ages 9-10)</option>
+                    <option value="yellow">Yellow Group (Ages 11+)</option>
+                    <option value="veteran">Veteran Group</option>
+                    <option value="private">Private Lessons</option>
+                  </select>
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                  >
+                    <i class="ri-arrow-down-s-line text-gray-400"></i>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-gray-700 font-medium mb-2"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  rows="4"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  placeholder="Your message"
+                ></textarea>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-button font-medium transition-all whitespace-nowrap"
+                >
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div> -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-6">
+              Contact Information
+            </h3>
+            <div class="space-y-4 md:flex md:justify-between md:items-center">
+              <div class="flex items-start">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Location</h4>
+                  <p class="text-gray-600">
+                    <a target="_blank"
+                      href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef Island</a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                  <i class="ri-whatsapp-line"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Whatsapp</h4>
+                  <p class="text-gray-600">
+                    <a target="_blank"
+                      href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20programs.">+97336885993</a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Email</h4>
+                  <p class="text-gray-600">
+                    <a target="_blank" href="/cdn-cgi/l/email-protection#a5c8d6c48bc4c6c4c1c0c8dce5cad0d1c9cacace8bc6cac8"><span class="__cf_email__" data-cfemail="7e130d1f501f1d1f1a1b13073e110b0a12111115501d1113">[email&#160;protected]</span></a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                  <i class="ri-time-line"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Hours</h4>
+                  <p class="text-gray-600">
+                    All-week: 9:00 AM - 10:00PM
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Follow Us</h3>
+            <div class="flex space-x-4">
+              <!-- <a
+                  href="#"
+                  class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                >
+                  <i class="ri-facebook-fill"></i>
+                </a> -->
+              <a target="_blank" href="https://www.instagram.com/msaacademybahrain"
+                class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+                <i class="ri-instagram-line"></i>
+              </a>
+              <!-- <a
+                  href="#"
+                  class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                >
+                  <i class="ri-twitter-x-line"></i>
+                </a>
+                <a
+                  href="#"
+                  class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                >
+                  <i class="ri-youtube-line"></i>
+                </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <span class="text-primary text-lg font-bold"><img src="./assets/logo.png" alt="logo" /></span>
+            </div>
+            <span class="ml-3 text-white font-semibold">Masters Sport Academy</span>
+          </div>
+          <p class="text-white/80 mb-6">
+            To deliver world-class sports training that develops skilled athletes and confident individuals through
+            tennis, swimming, fitness and a variety of athletic programs.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#home" class="text-white/80 hover:text-white transition-colors">Home</a>
+            </li>
+            <li>
+              <a href="#programs" class="text-white/80 hover:text-white transition-colors">Programs</a>
+            </li>
+            <li>
+              <a href="#gallery" class="text-white/80 hover:text-white transition-colors">Gallery</a>
+            </li>
+            <li>
+              <a href="#contact" class="text-white/80 hover:text-white transition-colors">Contact</a>
+            </li>
+            <li>
+              <a href="#about-us" class="text-white/80 hover:text-white transition-colors">About Us</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Programs</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#red-group" class="text-white/80 hover:text-white transition-colors">Red Group (4-6 yrs)</a>
+            </li>
+            <li>
+              <a href="#orange-group" class="text-white/80 hover:text-white transition-colors">Orange Group (7-8
+                yrs)</a>
+            </li>
+            <li>
+              <a href="#green-group" class="text-white/80 hover:text-white transition-colors">Green Group (9-10 yrs)</a>
+            </li>
+            <li>
+              <a href="#yellow-group" class="text-white/80 hover:text-white transition-colors">Yellow Group (11+
+                yrs)</a>
+            </li>
+            <li>
+              <a href="#veteran-group" class="text-white/80 hover:text-white transition-colors">Veteran Group</a>
+            </li>
+            <li>
+              <a href="#private-programs" class="text-white/80 hover:text-white transition-colors">Private Programs</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <div
+                class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-white/80 hover:text-white transition-colors">
+                <i class="ri-map-pin-line"></i>
+              </div>
+              <span class="text-white/80 hover:text-white transition-colors"><a target="_blank"
+                  href="https://maps.app.goo.gl/wxhRCcobDE8fePqr6?g_st=com.google.maps.preview.copy">Reef
+                  Island</a></span>
+            </li>
+            <li class="flex items-start">
+              <div
+                class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-white/80 hover:text-white transition-colors">
+                <i class="ri-whatsapp-line"></i>
+              </div>
+              <span class="text-white/80 hover:text-white transition-colors"><a
+                  href="https://wa.me/97336885993?text=Hi%20Master%20Sports%20Academy!%0A%0AI'm%20interested%20in%20joining%20your%20tennis%20programs.">+97336885993</a></span>
+            </li>
+            <li class="flex items-start">
+              <div
+                class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-white/80 hover:text-white transition-colors">
+                <i class="ri-mail-line"></i>
+              </div>
+              <span class="text-white/80 hover:text-white transition-colors"><a href="/cdn-cgi/l/email-protection#a1ccd2c08fc0c2c0c5c4ccd8e1ced4d5cdcececa8fc2cecc"><span class="__cf_email__" data-cfemail="eb86988ac58a888a8f8e8692ab849e9f87848480c5888486">[email&#160;protected]</span></a></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row justify-center items-center">
+        <p class="text-white/80 text-sm mb-4 md:mb-0">
+          © 2025 Masters Sport Academy. All rights reserved.
+        </p>
+        <!-- <div class="flex space-x-6">
+            <a
+              href="#"
+              class="text-white/80 hover:text-white transition-colors text-sm"
+              >Privacy Policy</a
+            >
+            <a
+              href="#"
+              class="text-white/80 hover:text-white transition-colors text-sm"
+              >Terms of Service</a
+            >
+          </div> -->
+      </div>
+    </div>
+  </footer>
+  <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        menuToggle.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: "smooth",
+              });
+              const mobileMenu = document.getElementById("mobile-menu");
+              if (!mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("hidden");
+              }
+            }
+          });
+        });
+      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle("visible", entry.isIntersecting);
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.1,
+        }
+      );
+
+      // Observe all elements with fade-up class
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((element) => observer.observe(element));
+      // Lightbox
+      let currentImageIndex = 0;
+      function openLightbox(index) {
+        currentImageIndex = index - 1;
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxCaption = document.getElementById("lightbox-caption");
+        lightboxImg.src = galleryImages[index].src;
+        lightboxCaption.textContent = galleryImages[index].caption;
+        lightbox.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+      function closeLightbox() {
+        const lightbox = document.getElementById("lightbox");
+        lightbox.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+      function prevImage() {
+        currentImageIndex =
+          (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxCaption = document.getElementById("lightbox-caption");
+        lightboxImg.src = galleryImages[currentImageIndex].src;
+        lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+      }
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxCaption = document.getElementById("lightbox-caption");
+        lightboxImg.src = galleryImages[currentImageIndex].src;
+        lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+      }
+      document.addEventListener("keydown", function (e) {
+        if (document.getElementById("lightbox").classList.contains("hidden"))
+          return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") prevImage();
+        if (e.key === "ArrowRight") nextImage();
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const galleryGrid = document.querySelector("#gallery .grid");
+        const viewMoreBtn = document.getElementById("view-more-btn");
+        const galleryItems = galleryGrid.children;
+        const itemsPerPage = 6; // 2 rows × 3 columns
+        let currentlyShown = itemsPerPage;
+
+        // Initially hide all items beyond the first two rows
+        for (let i = itemsPerPage; i < galleryItems.length; i++) {
+          galleryItems[i].style.display = "none";
+        }
+
+        // Show/hide the button based on whether there are more items to show
+        viewMoreBtn.style.display =
+          galleryItems.length > itemsPerPage ? "inline-block" : "none";
+
+        viewMoreBtn.addEventListener("click", function () {
+          // Show next two rows of items
+          for (
+            let i = currentlyShown;
+            i < currentlyShown + itemsPerPage && i < galleryItems.length;
+            i++
+          ) {
+            galleryItems[i].style.display = "";
+            galleryItems[i].classList.add("fade-up");
+            setTimeout(() => {
+              galleryItems[i].classList.add("visible");
+            }, 50);
+          }
+
+          currentlyShown += itemsPerPage;
+
+          // Hide the button if all items are shown
+          if (currentlyShown >= galleryItems.length) {
+            viewMoreBtn.style.display = "none";
+          }
+        });
+      });
+    </script> -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      menuToggle.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const navLinks = document.querySelectorAll('a[href^="#"]');
+      navLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (!mobileMenu.classList.contains("hidden")) {
+              mobileMenu.classList.add("hidden");
+            }
+          }
+        });
+      });
+    });
+    // Declare galleryImages globally
+    let galleryImages = [];
+
+    // Function to create gallery item HTML
+    function createGalleryItem(image, index) {
+      return `
+                <div class="fade-up relative group overflow-hidden rounded-lg shadow-md aspect-[4/3] cursor-pointer" onclick="openLightbox(${index + 1})">
+                  <img
+                    src="${image.src}"
+                    alt="${image.caption}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <p class="text-white text-lg font-semibold">${image.caption}</p>
+                  </div>
+                </div>
+              `;
+    }
+
+    // Function to initialize gallery
+    function initializeGallery() {
+      const galleryGrid = document.getElementById("gallery-grid");
+      const viewMoreBtn = document.getElementById("view-more-btn");
+      const itemsPerPage = 6; // 2 rows × 3 columns
+      let currentlyShown = itemsPerPage;
+
+      // Initially render first set of images
+      galleryImages.slice(0, itemsPerPage).forEach((image, index) => {
+        const itemHTML = createGalleryItem(image, index);
+        galleryGrid.insertAdjacentHTML("beforeend", itemHTML);
+      });
+
+      // Initialize fade-up animation
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle("visible", entry.isIntersecting);
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.1,
+        }
+      );
+
+      // Observe initial items
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((element) => observer.observe(element));
+
+      // Show/hide view more button
+      viewMoreBtn.style.display =
+        galleryImages.length > itemsPerPage ? "inline-block" : "none";
+
+      // Handle view more click
+      viewMoreBtn.addEventListener("click", () => {
+        const nextItems = galleryImages.slice(
+          currentlyShown,
+          currentlyShown + itemsPerPage
+        );
+        nextItems.forEach((image, i) => {
+          const itemHTML = createGalleryItem(image, currentlyShown + i);
+          galleryGrid.insertAdjacentHTML("beforeend", itemHTML);
+        });
+
+        // Observe new items
+        document
+          .querySelectorAll(".fade-up:not(.visible)")
+          .forEach((element) => observer.observe(element));
+
+        currentlyShown += itemsPerPage;
+
+        // Hide button if all images are shown
+        if (currentlyShown >= galleryImages.length) {
+          viewMoreBtn.style.display = "none";
+        }
+      });
+    }
+
+    // Lightbox functions
+    let currentImageIndex = 0;
+
+    function openLightbox(index) {
+      if (!galleryImages || !galleryImages.length) {
+        console.warn('Gallery images not yet loaded');
+        return;
+      }
+      currentImageIndex = index - 1;
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+      if (!lightbox || !lightboxImg || !lightboxCaption) {
+        console.error('Lightbox elements not found');
+        return;
+      }
+      lightboxImg.src = galleryImages[currentImageIndex].src;
+      lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+      lightbox.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function prevImage() {
+      if (!galleryImages || !galleryImages.length) {
+        console.warn('Gallery images not yet loaded');
+        return;
+      }
+      currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+      const lightboxImg = document.getElementById("lightbox-img");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+      if (!lightboxImg || !lightboxCaption) {
+        console.error('Lightbox elements not found');
+        return;
+      }
+      lightboxImg.src = galleryImages[currentImageIndex].src;
+      lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+    }
+
+    function nextImage() {
+      if (!galleryImages || !galleryImages.length) {
+        console.warn('Gallery images not yet loaded');
+        return;
+      }
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      const lightboxImg = document.getElementById("lightbox-img");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+      if (!lightboxImg || !lightboxCaption) {
+        console.error('Lightbox elements not found');
+        return;
+      }
+      lightboxImg.src = galleryImages[currentImageIndex].src;
+      lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+    // Load gallery images and initialize
+    fetch("./galleryImages.json")
+      .then((response) => response.json())
+      .then((data) => {
+        galleryImages = data;
+        initializeGallery();
+      })
+      .catch((error) =>
+        console.error("Error loading gallery images:", error)
+      );
+
+    // Touch handling variables
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Function to handle touch start
+    function handleTouchStart(e) {
+      touchStartX = e.touches[0].clientX;
+    }
+
+    // Function to handle touch end
+    function handleTouchEnd(e) {
+      touchEndX = e.changedTouches[0].clientX;
+      handleSwipe();
+    }
+
+    // Function to determine swipe direction and trigger appropriate action
+    function handleSwipe() {
+      const swipeThreshold = 50; // minimum distance for a swipe
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) >= swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swiped right - show previous image
+          prevImage();
+        } else {
+          // Swiped left - show next image
+          nextImage();
+        }
+      }
+    }
+
+    // Add touch event listeners to lightbox
+    document.getElementById('lightbox').addEventListener('touchstart', handleTouchStart, false);
+    document.getElementById('lightbox').addEventListener('touchend', handleTouchEnd, false);
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', function (e) {
+      if (document.getElementById('lightbox').classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+  </script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      new Swiper('.hero-swiper', {
+        loop: true,
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        speed: 1000,
+        autoplay: {
+          delay: 6000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>
