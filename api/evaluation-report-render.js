@@ -106,7 +106,7 @@ export default async function(req,res){
   if(heroKey){
     const image=await storage.get(heroKey);
     if(!image?.buffer)return res.status(500).send('Selected '+sport+' Option 2 report image is missing.');
-    hero='https://msa-academy-manager.hatchable.site/api/evaluation-report-image?sport='+encodeURIComponent(sport.toLowerCase())+'&v=305';
+    hero='https://msa-academy-manager.hatchable.site/api/evaluation-report-image?sport='+encodeURIComponent(sport.toLowerCase())+'&v=309';
   }
 
   const skills=(skillsBySport[sport]?.[level]||[]).slice(0,5);
