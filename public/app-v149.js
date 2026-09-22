@@ -272,7 +272,7 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    window.location.href=API+'/evaluation-report-pdf-v274?id='+encodeURIComponent(id);
+    window.location.href=API+'/evaluation-report-pdf-v274?id='+encodeURIComponent(id)+'&v=288&design=tennis-swimming-option2';
   }catch(err){
     console.error('MSA PDF navigation failed',err);
     alert('PDF generation failed: '+(err?.message||err));
