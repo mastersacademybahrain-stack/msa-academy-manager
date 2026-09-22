@@ -272,7 +272,7 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    window.location.href=API+'/evaluation-report-pdf?id='+encodeURIComponent(id)+'&v=309';
+    window.location.href=API+'/evaluation-report-pdf?id='+encodeURIComponent(id)+'&v=310&t='+Date.now();
   }catch(err){
     console.error('MSA PDF navigation failed',err);
     alert('PDF generation failed: '+(err?.message||err));

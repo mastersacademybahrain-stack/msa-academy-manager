@@ -15,7 +15,7 @@ export default async function(req,res){
 
   const token=crypto.randomUUID();
   await db.query("INSERT INTO report_pdf_tokens (token,evaluation_id,expires_at) VALUES ($1,$2,now()+interval '5 minutes')",[token,id]);
-  const base='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&v=309';
+  const base='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&v=310&t='+Date.now();
   try{
     const bytes=await browser.pdf(base,{width:'210mm',height:'297mm',printBackground:true});
     res.setHeader('X-MSA-PDF-Renderer','canonical-option2-storage-v1');
