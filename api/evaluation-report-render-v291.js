@@ -38,7 +38,7 @@ const swimmingLevelImages={Starfish:'/level-swimming-starfish.svg',Seahorse:'/le
 const tennisLevelImages={Red:'/level-tennis-red.svg',Orange:'/level-tennis-orange.svg',Green:'/level-tennis-green.svg',Yellow:'/level-tennis-yellow.svg'};
 const sportKey=String(sport).toLowerCase().replace(/[^a-z]/g,'');
 const levelImage=sportKey==='swimming'?(swimmingLevelImages[level]||'/level-swimming-dolphin.svg'):sportKey==='tennis'?(tennisLevelImages[level]||'/level-tennis-yellow.svg'):sportKey==='waterpolo'?'/level-waterpolo.svg':'/level-waterpolo.svg';
-const sportPhotos={tennis:'/api/report-asset/tennis?v=298',swimming:'/api/report-asset/swimming?v=298'};
+const sportPhotos={tennis:'/api/report-asset/tennis?v=300',swimming:'/report-swimming-option2-selected.jpg?v=300'};
  const photo=sportPhotos[sportKey]||'/api/report-asset/tennis?v=298';
  const html='<!doctype html><html><head><meta charset="utf-8"><style>'+
  '@page{size:210mm 297mm;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;width:210mm;height:297mm;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#082d70}'+
