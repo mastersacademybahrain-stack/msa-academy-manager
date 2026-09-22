@@ -72,7 +72,7 @@ const selectedHeroKeys={
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key=s=>String(s??'').replace(/[^a-z0-9]+/gi,'_').toLowerCase();
 
-function toDataUri(item,mime){
+function toDataUri_legacy_disabled(item,mime){
   if(!item?.buffer)throw new Error('Selected report image is missing.');
   const bytes=new Uint8Array(item.buffer);
   let binary='';
@@ -106,7 +106,7 @@ export default async function(req,res){
   if(heroKey){
     const image=await storage.get(heroKey);
     if(!image?.buffer)return res.status(500).send('Selected '+sport+' Option 2 report image is missing.');
-    hero=toDataUri(image,sport==='Swimming'?'image/jpeg':'image/webp');
+    hero='https://msa-academy-manager.hatchable.site/api/evaluation-report-image?sport='+encodeURIComponent(sport.toLowerCase())+'&v=305';
   }
 
   const skills=(skillsBySport[sport]?.[level]||[]).slice(0,5);
