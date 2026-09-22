@@ -39,7 +39,9 @@ const tennisLevelImages={Red:'/level-tennis-red.svg',Orange:'/level-tennis-orang
 const sportKey=String(sport).toLowerCase().replace(/[^a-z]/g,'');
 const levelImage=sportKey==='swimming'?(swimmingLevelImages[level]||'/level-swimming-dolphin.svg'):sportKey==='tennis'?(tennisLevelImages[level]||'/level-tennis-yellow.svg'):sportKey==='waterpolo'?'/level-waterpolo.svg':'/level-waterpolo.svg';
 const sportPhotos={tennis:'/report-tennis-option2.webp?v=296',swimming:'/report-swimming-option2.webp?v=296'};
- const photo=sportPhotos[sportKey]||'/report-tennis-option2.webp';
+ const photoUrl=sportPhotos[sportKey]||'/report-tennis-option2.webp';
+ let photo=photoUrl;
+ try{const imgRes=await fetch('https://msa-academy-manager.hatchable.site'+photoUrl);if(imgRes.ok){const imgBuf=Buffer.from(await imgRes.arrayBuffer());photo='data:'+(imgRes.headers.get('content-type')||'image/webp')+';base64,'+imgBuf.toString('base64')}}catch(_){ }
  const html='<!doctype html><html><head><meta charset="utf-8"><style>'+
  '@page{size:210mm 297mm;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;width:210mm;height:297mm;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#082d70}'+
  '.page{position:relative;width:210mm;height:297mm;overflow:hidden;background:#fff}'+
