@@ -272,13 +272,15 @@ async function generateEvaluationPDFById(id){
   let e=(st.evaluations||[]).find(function(x){return x.id===id});
   if(!e)return alert('Evaluation not found.');
   try{
-    window.location.href=API+'/evaluation-report-pdf-v291?id='+encodeURIComponent(id)+'&v=291&design=option2-exact';
+    window.location.href=API+'/evaluation-report-pdf?id='+encodeURIComponent(id)+'&v=302';
   }catch(err){
     console.error('MSA PDF navigation failed',err);
     alert('PDF generation failed: '+(err?.message||err));
   }
 }
-function generateEvaluationPDF(source){
+function generateEvaluationPDF(source){return generateEvaluationPDFById(source?.id||source?.evaluation_id||'');}
+/* Legacy client-side report generator removed: all evaluation PDFs now use the canonical server renderer. */
+function generateEvaluationPDF_LEGACY_REMOVED(source){
   let pid=source?.player_id||st.evaluationPlayerId||'',sport=source?.sport||st.evaluationSport||'',level=source?.level||st.evaluationLevel||'';
   let p=st.players.find(function(x){return x.id===pid}),cfg=evaluationConfig[sport];
   if(!p||!cfg||!level)return alert('Complete the player, sport and level first.');
