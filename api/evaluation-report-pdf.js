@@ -12,13 +12,12 @@ export default async function(req,res){
   if(!id)return res.status(400).json({error:'Evaluation id is required.'});
   const exists=await db.query('SELECT id FROM player_evaluations WHERE id=$1 LIMIT 1',[id]);
   if(!exists.rows.length)return res.status(404).json({error:'Evaluation not found.'});
-
   const token=crypto.randomUUID();
   await db.query("INSERT INTO report_pdf_tokens (token,evaluation_id,expires_at) VALUES ($1,$2,now()+interval '5 minutes')",[token,id]);
-  const base='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&v=310&t='+Date.now();
+  const url='https://msa-academy-manager.hatchable.site/api/evaluation-report-render?token='+encodeURIComponent(token)+'&v=400&t='+Date.now();
   try{
-    const bytes=await browser.pdf(base,{width:'210mm',height:'297mm',printBackground:true});
-    res.setHeader('X-MSA-PDF-Renderer','canonical-option2-storage-v1');
+    const bytes=await browser.pdf(url,{width:'210mm',height:'297mm',printBackground:true});
+    res.setHeader('X-MSA-PDF-Renderer','msa-template-v1');
     res.setHeader('content-type','application/pdf');
     res.setHeader('content-disposition','inline; filename="MSA_Player_Evaluation_Report.pdf"');
     return res.send(bytes);
